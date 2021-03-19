@@ -32,7 +32,7 @@ alert("Your hard earned money totals: $" + finalPay.toFixed(2));
 var studentEnroll = confirm("Class starts at 9AM, can you attend?");
 if(studentEnroll === true){
     var classMax = 26;
-    var classSize = 26;
+    var classSize = 25;
     classSize = classSize + 1
 }
 if(classSize <= classMax && studentEnroll === true){
