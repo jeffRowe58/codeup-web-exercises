@@ -8,12 +8,12 @@
      * Example
      * > sayHello("codeup") // returns "Hello, codeup!"
      */
-//function sayHello(x) {
-//    var helloMessage = "Hey there " + x + " !";
-//    return helloMessage
- //   }
-//    var myName = prompt("What's your name?");
-//    alert(sayHello(myName));
+    function sayHello(x) {
+      var helloMessage = "Hey there " + x + " !";
+      return helloMessage
+    }
+    var myName = prompt("What's your name?");
+    alert(sayHello(myName));
     /**
      * TODO:
      * Call the function 'sayHello' and pass your name as a string literal argument.
@@ -98,8 +98,9 @@ calculateTip()
      * > applyDiscount(45.99, 0.12) // 40.4712
      */
     function applyDiscount(x,y){
-        let total = x * y;
-        console.log("You saved a total of $" + total.toFixed(2) + " today!");
+        let totalReduce = x * y;
+        let total = x - totalReduce;
+        console.log("Your price after discount is $" + total.toFixed(2));
         return total.toFixed(2);
 
     }
