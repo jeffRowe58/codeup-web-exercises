@@ -22,7 +22,7 @@
 
 //function analyzeColor(x){
 //    if(x === "blue") {
-//        return x + " is my favoite color."
+//        return x + " is my favorite color."
 //    }else if (x === "red") {
 //        return x + " colored sports cars get pulled over the most."
 //    }else if(x === "green") {
@@ -41,8 +41,8 @@
 // - `colors`: a list of the colors of the rainbow
 // - `randomColor`: contains a single random color value from the list (this
 //                  will contain a different color every time the page loads)
-var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
-var randomColor = colors[Math.floor(Math.random() * colors.length)];
+// var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+// var randomColor = colors[Math.floor(Math.random() * colors.length)];
 /**
  * TODO:
  * Pass the `randomColor` variable to your function and console.log the results.
@@ -50,7 +50,7 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
  */
 // function analyzeColor(x){
 //     if(x === "blue") {
-//         return x + " is my favoite color."
+//         return x + " is my favorite color."
 //     }else if (x === "red") {
 //         return x + " colored sports cars get pulled over the most."
 //     }else if(x === "green") {
@@ -88,7 +88,7 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
 //
 // function analyzeColor(x){
 //     if(x === "blue") {
-//         return alert(x + " is my favoite color.");
+//         return alert(x + " is my favorite color.");
 //     }else if (x === "red") {
 //        return alert(x + " colored sports cars get pulled over the most.")
 //     }else if(x === "green") {
@@ -188,30 +188,30 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
  * Can you refactor your code to use functions?
  * HINT: The way we prompt for a value could be improved
  */
-    (function() {
         var userChoice = confirm("Would you like to enter a number today?");
         if (userChoice === true) {
-            var num = parseFloat(prompt("Pick a number."));
-            if (typeof num === "number") {
-                alert("Good job following directions!");
-            } else {
-                alert("You didn't enter a number genius.");
+            var num = parseFloat(prompt("Enter a number please."))
+            while (isNaN(num) === true){
+                num = parseFloat(prompt("Please enter a number?"))
             }
-            if (num % 2 === 0) {
-                alert("Your number: " + num + " is Even.");
-            } else {
-                alert("Your number: " + num + " is Odd.");
-            }
-            alert("Your number: " + num + " + 100 = " + (num + 100));
-            if (num >= 0) {
-                alert("Your number: " + num + " is a Positive Number.");
-            } else {
-                alert("Your number: " + num + " is a Negative Number. :( ");
-            }
-        } else {
-            alert("You're a boring person.");
-        }
-        })();
+            if (isNaN(num) === false) {
+             if (num % 2 === 0) {
+                 alert("Your number: " + num + " is Even.");
+             } else {
+                 alert("Your number: " + num + " is Odd.");
+             }
+             if (num >= 0) {
+                 alert("Your number: " + num + " is a Positive Number.");
+             } else {
+                 alert("Your number: " + num + " is a Negative Number. :( ");
+             }
+                 alert("Your number: " + num + " + 100 = " + (num + 100));
+         }else {
+             alert("That isn't a number. Try again.")
+         }
 
+        }else {
+            alert("You're a boring person!")
+}
 
 
