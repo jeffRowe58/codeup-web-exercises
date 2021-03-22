@@ -188,30 +188,32 @@
  * Can you refactor your code to use functions?
  * HINT: The way we prompt for a value could be improved
  */
-        var userChoice = confirm("Would you like to enter a number today?");
-        if (userChoice === true) {
-            var num = parseFloat(prompt("Enter a number please."))
-            while (isNaN(num) === true){
-                num = parseFloat(prompt("Please enter a number?"))
+(function() {
+    var userChoice = confirm("Would you like to enter a number today?");
+    if (userChoice === true) {
+        var num = parseFloat(prompt("Enter a number please."))
+        while (isNaN(num) === true) {
+            num = parseFloat(prompt("Please enter an actual number!"))
+        }
+        if (isNaN(num) === false) {
+            if (num % 2 === 0) {
+                alert("Your number: " + num + " is Even.");
+            } else {
+                alert("Your number: " + num + " is Odd.");
             }
-            if (isNaN(num) === false) {
-             if (num % 2 === 0) {
-                 alert("Your number: " + num + " is Even.");
-             } else {
-                 alert("Your number: " + num + " is Odd.");
-             }
-             if (num >= 0) {
-                 alert("Your number: " + num + " is a Positive Number.");
-             } else {
-                 alert("Your number: " + num + " is a Negative Number. :( ");
-             }
-                 alert("Your number: " + num + " + 100 = " + (num + 100));
-         }else {
-             alert("That isn't a number. Try again.")
-         }
+            if (num >= 0) {
+                alert("Your number: " + num + " is a Positive Number.");
+            } else {
+                alert("Your number: " + num + " is a Negative Number. :( ");
+            }
+            alert("Your number: " + num + " + 100 = " + (num + 100));
+        } else {
+            alert("That isn't a number. Try again.")
+        }
 
-        }else {
-            alert("You're a boring person!")
-}
+    } else {
+        alert("You're a boring person!")
+    }
+})();
 
 
