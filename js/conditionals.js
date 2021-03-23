@@ -149,28 +149,28 @@
  * and alerts to display to the user what their lucky number was, what their
  * price before the discount was, and what their price after the discount is.
  */
-// Generate a random number between 0 and 6
-//  var luckyNumber = Math.floor(Math.random() * 6);
-//  var tBill = parseFloat(prompt("How much was your total bill?"));
-// function calculateTotal(q,b) {
-//     if (q === 0) {
-//         return b - (b * 0);
-//     } else if (q === 1) {
-//         return b - (b * .10);
-//     } else if (q === 2) {
-//         return b - (b * .25);
-//     } else if (q === 3) {
-//         return b - (b * .35);
-//     } else if (q === 4) {
-//         return b - (b * .50);
-//     } else if (q === 5) {
-//         return b - (b * 1);
-//     } else {
-//         return "No numbers"
-//     }
-// }
-//
-// alert("Your total bill today was: $" + tBill + ". Your Lucky Number today was: " + luckyNumber + ". Congratulations your new total is $" + calculateTotal(luckyNumber,tBill).toFixed(2) + "!")
+//Generate a random number between 0 and 6
+ var luckyNumber = Math.floor(Math.random() * 6);
+ var tBill = parseFloat(prompt("How much was your total bill?"));
+function calculateTotal(q,b) {
+    if (q === 0) {
+        return b - (b * 0).toFixed(2);
+    } else if (q === 1) {
+        return b - (b * .10).toFixed(2);
+    } else if (q === 2) {
+        return b - (b * .25).toFixed(2);
+    } else if (q === 3) {
+        return b - (b * .35).toFixed(2);
+    } else if (q === 4) {
+        return b - (b * .50).toFixed(2);
+    } else if (q === 5) {
+        return b - (b * 1).toFixed(2);
+    } else {
+        return "No numbers"
+    }
+}
+
+alert("Your total bill today was: $" + tBill + ". Your Lucky Number today was: " + luckyNumber + ". Congratulations your new total is $" + calculateTotal(luckyNumber,tBill) + "!")
 
 /**
  * TODO:
@@ -188,32 +188,32 @@
  * Can you refactor your code to use functions?
  * HINT: The way we prompt for a value could be improved
  */
-(function() {
-    var userChoice = confirm("Would you like to enter a number today?");
-    if (userChoice === true) {
-        var num = parseFloat(prompt("Enter a number please."))
-        while (isNaN(num) === true) {
-            num = parseFloat(prompt("Please enter an actual number!"))
-        }
-        if (isNaN(num) === false) {
-            if (num % 2 === 0) {
-                alert("Your number: " + num + " is Even.");
-            } else {
-                alert("Your number: " + num + " is Odd.");
-            }
-            if (num >= 0) {
-                alert("Your number: " + num + " is a Positive Number.");
-            } else {
-                alert("Your number: " + num + " is a Negative Number. :( ");
-            }
-            alert("Your number: " + num + " + 100 = " + (num + 100));
-        } else {
-            alert("That isn't a number. Try again.")
-        }
-
-    } else {
-        alert("You're a boring person!")
-    }
-})();
+// (function() {
+//     var userChoice = confirm("Would you like to enter a number today?");
+//     if (userChoice === true) {
+//         var num = parseFloat(prompt("Enter a number please."))
+//         while (isNaN(num) === true) {
+//             num = parseFloat(prompt("Please enter an actual number!"))
+//         }
+//         if (isNaN(num) === false) {
+//             if (num % 2 === 0) {
+//                 alert("Your number: " + num + " is Even.");
+//             } else {
+//                 alert("Your number: " + num + " is Odd.");
+//             }
+//             if (num >= 0) {
+//                 alert("Your number: " + num + " is a Positive Number.");
+//             } else {
+//                 alert("Your number: " + num + " is a Negative Number. :( ");
+//             }
+//             alert("Your number: " + num + " + 100 = " + (num + 100));
+//         } else {
+//             alert("That isn't a number. Try again.")
+//         }
+//
+//     } else {
+//         alert("You're a boring person!")
+//     }
+// })();
 
 
