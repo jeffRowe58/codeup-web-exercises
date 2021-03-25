@@ -12,7 +12,7 @@ console.log(allCones + " Cones are left today.")
             allCones = allCones - conesSold;
             console.log("I now have " + allCones + " left.")
         }
-    } while (allCones >= 1);
+    } while (allCones > 0);
     if(allCones === 0) {
         console.log("Yay, I sold them all!");
     }
