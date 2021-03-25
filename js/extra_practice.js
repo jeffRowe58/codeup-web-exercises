@@ -1,25 +1,18 @@
 //Random number generator
 var random = (Math.random() * (100 - 1) + 1).toFixed(0);
 var smallRandom = (Math.random() * (11-1) + 1).toFixed(0);
+var Mystring = "This is a string, for sure."
 
 //1. Function is odd
 function isOdd(x){
-    if(x % 2 === 1){
-        return true;
-    }else {
-        return false;
-    }
+    return x % 2 === 1;
 }
 console.log("The random number is odd: " + isOdd(random))
 console.log("The random number is: " + random )
 
 //2. Function is even
 function isEven(x){
-    if(x % 2 === 0){
-        return true;
-    }else {
-        return false;
-    }
+    return x % 2 === 0;
 }
 console.log("The random number is even: " + isEven(random))
 console.log("The random number is: " + random )
@@ -58,7 +51,7 @@ isMultipleOfFive(random)
 
 //7. Function is three
 function isThree(x){
-    if(x == 3){
+    if(x === 3){
         console.log(x + " is three!")
     }else {
         console.log(x + " is definitely not three!")
@@ -77,19 +70,19 @@ function isMultipleOfThree(x){
 isMultipleOfThree(random)
 
 //9. Function is multiple of five and three
-function isMulitpleOfThreeAndFive(x){
+function isMultipleOfThreeAndFive(x){
     if(x % 5 === 0 && x % 3 ===0){
         console.log(x + " is an amazing number. It is a multiple of three and five!");
     }else {
         console.log("Boo the number " + x + " it doesn't like 3 and 5!")
     }
 }
-isMulitpleOfThreeAndFive(random);
+isMultipleOfThreeAndFive(random);
 
 //10. Function is multiple of target
 function isMultipleOf(target, n) {
     if (target % n === 0) {
-        console.log("A miricle just happened " + target + " is a multiple of " + n + "!")
+        console.log("A miracle just happened " + target + " is a multiple of " + n + "!")
     } else {
         console.log("Well I could have told you that " + target + " and " + n + " didn't get along!")
     }
@@ -132,33 +125,28 @@ isFalsy(0);
 var alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var randomChar = alpha[Math.floor(Math.random() * alpha.length)];
 function isVowel(x) {
-    var vow = ["a", "e", "i", "o", "u"];
-    for (var i = 0; i < vow.length; i++) {
-        if (vow[i] === x) {
+    var vow = ("aeiou");
+        if (vow.includes(x)) {
             return console.log(x + " is a vowel");
+        }else {
+            return console.log(x + " is not a vowel.")
         }
     }
-    if(x !== vow[i]){
-        return console.log(x + " is not a vowel.");
-    }
-}
+
 isVowel(randomChar.toLowerCase());
 
-//15. Function is a Consonant
+//16. Function is a Consonant
 function isConsonant(x){
-    var vowel = ['a','e','i', 'o', 'u'];
-    for(var i = 0; i < vowel.length; i++){
-        if(x === vowel[i]) {
-            return console.log(x + " is not a consonant.");
-        }
-    }
-    if(x !== vowel[i]){
-        return console.log(x + " is a consonant.");
+    var vow = ("aeiou");
+    if (vow.includes(x)) {
+        return console.log(x + " is not a consonant.");
+    }else {
+        return console.log(x + " is a consonant.")
     }
 }
 isConsonant(randomChar.toLowerCase());
 
-//16. Function is capital
+//17. Function is capital
 function isCapital(x){
     if(x === x.toUpperCase()){
         return console.log(x + " is a capital letter.")
@@ -168,7 +156,7 @@ function isCapital(x){
 }
 isCapital(randomChar);
 
-//17. Funciton is lower case
+//18. Function is lower case
 function isLowerCase(x){
     if(x === x.toLowerCase()){
         return console.log(x + " is lower case.")
@@ -178,20 +166,133 @@ function isLowerCase(x){
 }
 isLowerCase(randomChar);
 
-//18. Function has lower case
-function hasLowerCase(x){
-    for(var i = 0; i < x.length; i++){
-        if(x[i] === x[i].toLowerCase()){
-            return console.log("String contains a lower case letter.")
-        }
-    }
-    for(var s = 0; s < x.length; s++){
-        if(x[s] !== x[s].toLowerCase()){
-            return console.log("String doesn't contain a lower case letter.")
-        }
+//19. Function has lower case
+function hasLowerCase(x) {
+    if(x.match(/[a-z]/g)){
+        return console.log("We found one.")
+    }else
+        return console.log("None here");
+}
+hasLowerCase("HHHvHHHH");
+
+//20. Function is space
+function isSpace(x){
+    if(x === " ") {
+        return console.log("Yup it's a space!")
+    }else {
+        return console.log("Nope it's not.")
     }
 }
-hasLowerCase("HHHHHH");
-hasLowerCase("HHHHaHHHHH");
+isSpace(Mystring[smallRandom]);
 
-//19.
+//21. Function is zero
+function isZero(x){
+    if(x === 0){
+        return console.log("Hey, " + x + " is a zero!");
+    }else {
+        return console.log("Nice try " + x + " you're no zero!")
+    }
+}
+isZero(0);
+isZero(3);
+
+//22. Function not zero
+function notZero(x) {
+        if(x === 0){
+            return console.log("true")
+        }else {
+            return console.log("false")
+        }
+}
+notZero(0);
+notZero(10);
+
+//23. Function lowercase string
+function lowerCase(x){
+    return console.log("Magic! I have turned " + x + " to " + x.toLowerCase());
+}
+lowerCase(Mystring);
+
+//24. Function double
+function double(n){
+    return n * 2;
+}
+console.log(smallRandom + " doubled is " + double(smallRandom));
+
+//25. Function triple
+function triple(n){
+    return n * 3;
+}
+console.log(smallRandom + " tripled is " + triple(smallRandom));
+
+//26. Function quadruple
+function quadruple(n) {
+    return n * 4;
+}
+console.log(smallRandom + " quadrupled is " + quadruple(smallRandom));
+
+//27. Function half
+function half(n){
+    return n - (n * .5);
+}
+console.log(random + " divided in half is " + half(random));
+
+//28. Function subtract
+function subtract(x,y){
+    return x - y;
+}
+console.log(random + " minus " + smallRandom + " is equal to " + subtract(random,smallRandom));
+
+//29. Function multiply
+function multiply(x,y){
+    return x * y;
+}
+console.log(random + " multiplied by " + smallRandom + " equals " + multiply(random,smallRandom))
+
+//30. Function divide
+function divide(x,y){
+    return x / y;
+}
+console.log(random + " divided by " + smallRandom + " equals " + divide(random,smallRandom).toFixed(2))
+
+//31. Function remainder
+function remainder(x,y){
+    return (x % y);
+}
+console.log("The remainder of " + random + " & " + smallRandom + " is: " + remainder(random,smallRandom));
+
+//31. Function modulo
+function modulo(x,y){
+    return (x % y);
+}
+console.log("The remainder of " + random + " & " + smallRandom + " is: " + modulo(random,smallRandom));
+
+//32. Function cube
+function cube(n){
+    return n * n * n;
+}
+console.log(smallRandom + " cubed is " + cube(smallRandom));
+
+//33. Function square root
+function squareRoot(n){
+    return Math.sqrt(n).toFixed(2);
+}
+console.log("The square root of " + random + " is " + squareRoot(random));
+
+//34. Function cubeRoot
+function cubeRoot(n){
+    return Math.cbrt(n).toFixed(1);
+}
+console.log (cubeRoot(random));
+
+//35. Function invertSign
+function invertSign(x) {
+    return x * -1;
+}
+console.log(random + " inverted is " + invertSign(random));
+
+//36. function degreesToRadian
+function degreesToRadian(x){
+    return x * (Math.PI/180);
+}
+console.log(degreesToRadian(45));
