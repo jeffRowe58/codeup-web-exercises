@@ -39,8 +39,17 @@ var makePyramid = function(steps) {
 makePyramid(9);
 
 // for loop console.log
+(function() {
     for (var i = 0; i < 20; i++) {
         var num = 100
         console.log(num - (5 * i));
     }
+})();
+
+    // pyramid simple
+
+    // for (let i = 1; i <= 9; ++i) {
+    // console.log(i.toString().repeat(i));
+//};
+
 
