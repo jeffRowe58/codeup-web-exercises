@@ -296,3 +296,57 @@ function degreesToRadian(x){
     return x * (Math.PI/180);
 }
 console.log(degreesToRadian(45));
+
+//37. function radianToDegrees
+function radianToDegrees(x){
+    return x * (180/Math.PI);
+}
+console.log(radianToDegrees(2));
+
+//38. function isBlank
+function isBlank(x){
+    if(/\s/.test(x)) {
+        return "The parameter passed is a blank space."
+    }else {
+        return "The parameter is a character."
+    }
+}
+console.log(isBlank(" "));
+
+//39. function trim
+function trim(x) {
+    return x.trim();
+}
+console.log(trim(" This is a test and only a test. "));
+
+//40. function areEqual
+function areEqual(x,y) {
+    return (x == y) ? true : false;
+}
+console.log(areEqual(19,10))
+
+//41. function areIdentical
+function areIdentical(x,y) {
+    return (x === y) ? true : false;
+}
+console.log(areIdentical(8,8));
+
+//42. function not, returns reverse boolean
+function not(x) {
+    if(typeof(x) === "boolean") {
+        return x + " reversed is " + !x;
+    }else {
+        return x + " is not a boolean value.";
+    }
+}
+console.log(not(true));
+
+//43. function notNot
+function notNot(x) {
+    if(typeof(x) === 'boolean') {
+        return x + " is not Not " + !!x;
+    }else {
+        return x + " is not a boolean."
+    }
+}
+console.log(notNot(true));
