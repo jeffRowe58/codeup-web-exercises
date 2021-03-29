@@ -8,8 +8,8 @@ var userNum = parseInt(prompt("Pick a odd number between 1 & 50"));
             break;
         }
         userNum = parseInt(prompt("Pick a odd number between 1 & 50"));
-        console.log("You picked the number " + userNum)
     }
+console.log("You picked the number " + userNum)
     if(userNum % 2 === 0 || isNaN(userNum) === true || userNum > 49 || userNum < 1){
         console.log('User failed to provide correct number.')
     }else {
