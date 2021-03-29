@@ -28,9 +28,9 @@ function isEvenRandom (x) {
 // for loop pyramid
 var makePyramid = function(steps) {
     var pyramid = '';
-    for(var step = 1; step <= steps; step++) {
-        for(var i = 1; i <= step; i++) {
-            pyramid = pyramid.concat(step.toString());
+    for(var s = 1; s <= steps; s++) {
+        for(var i = 1; i <= s; i++) {
+            pyramid = pyramid.concat(s.toString());
         }
         pyramid = pyramid.concat('\n');
         }
