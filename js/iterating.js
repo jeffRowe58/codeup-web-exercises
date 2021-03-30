@@ -12,7 +12,7 @@ var names = ['Jack', 'John', 'Jimmy', 'Jeff']
      * Create a log statement that will log the number of elements in the names
      * array.
      */
-    console.log(names);
+    console.log(names.length);
     /**
      * TODO:
      * Create log statements that will print each of the names individually by
@@ -53,10 +53,10 @@ names.forEach(function (element,index){
      */
 function first(x){
     return x[0];
-    };
+    }
 function second(x){
     return x[1];
-    };
+    }
 function last(x){
     var index = x.length - 1;
     return x[index];
