@@ -29,4 +29,6 @@ console.log(NewString);
 
 var uL = "<ul>" + "<li>" + planetsArray.join("</li><li>") + "</ul>";
 console.log(uL);
+document.getElementById('planets').innerHTML = uL;
+
 })();
