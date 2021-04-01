@@ -11,12 +11,12 @@
      *  > console.log(person.firstName) // "Rick"
      *  > console.log(person.lastName) // "Sanchez"
      */
-    var person = {
-        firstName: "Jeff",
-        lastName: "Rowe",
-    };
-    console.log(person.firstName);
-    console.log(person.lastName);
+    // var person = {
+    //     firstName: "Jeff",
+    //     lastName: "Rowe",
+    // };
+    // console.log(person.firstName);
+    // console.log(person.lastName);
     /**
      * TODO:
      * Add a sayHello method to the person object that returns a greeting using
@@ -26,14 +26,14 @@
      * Example
      * > console.log(person.sayHello()) // "Hello from Rick Sanchez!"
      */
-    var person = {
-        firstName: "Jeff",
-        lastName: "Rowe",
-        sayHello: function () {
-            return "Hello from " + person.firstName + " " + person.lastName;
-        }
-    };
-    console.log(person.sayHello());
+    // var person = {
+    //     firstName: "Jeff",
+    //     lastName: "Rowe",
+    //     sayHello: function () {
+    //         return "Hello from " + person.firstName + " " + person.lastName;
+    //     }
+    // };
+    // console.log(person.sayHello());
     /** TODO:
      * HEB has an offer for the shoppers that buy products amounting to
      * more than $200. If a shopper spends more than $200, they get a 12%
@@ -47,35 +47,27 @@
      * represents one shopper. Use a foreach loop to iterate through the array,
      * and console.log the relevant messages for each person
      */
-    (function () {
+
         var shoppers = [
             {name: 'Cameron', amount: 180},
             {name: 'Ryan', amount: 250},
             {name: 'George', amount: 320}
         ];
-        var names = [];
-        var amounts = [];
-        shoppers.forEach(function (element) {
-            names.push(element.name)
-            amounts.push(element.amount);
-        })
 
-        function discountApply(x, y) {
+        function discountApply(x) {
             var minSpend = 200;
             var discAmount = .12;
-            for (var i = 0; i < x.length; i++) {
-                if (y[i] > minSpend) {
-                    var message = names[i] + " you spent $" + amounts[i] + " Your discount earned: $" + (amounts[i] * discAmount).toFixed(2) + " Your final price: $" + (amounts[i] - (amounts[i] * discAmount)).toFixed(2);
-                    console.log(message);
-                } else {
-                    var message = names[i] + " you spent $" + amounts[i] + " You didn't earn a discount. Your final price: $" + amounts[i].toFixed(2);
-                    console.log(message);
-                }
-            }
+                shoppers.forEach(function (duck, i) {
+                    if (x[i].amount > minSpend) {
+                        console.log(x[i].name + " you spent $" + (x[i].amount).toFixed(2) + " and earned a discount of $" + (x[i].amount * discAmount).toFixed(2) + ". Your total owed is $" + (x[i].amount - (x[i].amount * discAmount)).toFixed(2));
+                    } else {
+                        console.log(x[i].name + " you spent $" + (x[i].amount).toFixed(2) + ". Which brings you $" + ((x[i].amount - minSpend) * -1).toFixed(2) + " short of a discount. The total you owe is $" + (x[i].amount).toFixed(2));
+                    }
+                })
         }
 
-        discountApply(names, amounts);
-    })()
+        discountApply(shoppers);
+
     /** TODO:
      * Create an array of objects that represent books and store it in a
      * variable named `books`. Each object should have a title and an author
@@ -88,45 +80,45 @@
      * > console.log(books[0].author.firstName) // "Douglas"
      * > console.log(books[0].author.lastName) // "Adams"
      */
-    var books = [
-        {
-            title: "It",
-            author: {
-                firstName: "Stephen",
-                lastName: "King",
-            }
-        },
-        {
-            title: "The Good Husband",
-            author: {
-                firstName: "Dean",
-                lastName: "Koontz",
-            }
-        },
-        {
-            title: "Bourne Identity",
-            author: {
-                firstName: "Robert",
-                lastName: "Ludlum",
-            }
-
-        },
-        {
-            title: "Congo",
-            author: {
-                firstName: "Michael",
-                lastName: "Crichton",
-            }
-        },
-        {
-            title: "The Firm",
-            author: {
-                firstName: "John",
-                lastName: "Grisham",
-            }
-        },
-    ];
-console.log(books[2].author.firstName);
+//     var books = [
+//         {
+//             title: "It",
+//             author: {
+//                 firstName: "Stephen",
+//                 lastName: "King",
+//             }
+//         },
+//         {
+//             title: "The Good Husband",
+//             author: {
+//                 firstName: "Dean",
+//                 lastName: "Koontz",
+//             }
+//         },
+//         {
+//             title: "Bourne Identity",
+//             author: {
+//                 firstName: "Robert",
+//                 lastName: "Ludlum",
+//             }
+//
+//         },
+//         {
+//             title: "Congo",
+//             author: {
+//                 firstName: "Michael",
+//                 lastName: "Crichton",
+//             }
+//         },
+//         {
+//             title: "The Firm",
+//             author: {
+//                 firstName: "John",
+//                 lastName: "Grisham",
+//             }
+//         },
+//     ];
+// console.log(books[2].author.firstName);
 
     /**
      * TODO:
@@ -152,40 +144,39 @@ console.log(books[2].author.firstName);
      *      ---
      *      ...
      */
-function bookCollection(x){
-    for(var i = 0; i < x.length; i++){
-         console.log("Book # " + (i + 1) + "\n" + "Title: " + x[i].title + "\n" + "Author: " + x[i].author.firstName + " " + x[i].author.lastName);
-        }
-    }
-    bookCollection(books);
-    /**
-     * Bonus:
-     * - Create a function named `createBook` that accepts a title and author
-     *   name and returns a book object with the properties described
-     *   previously. Refactor your code that creates the books array to instead
-     *   use your function.
-     * - Create a function named `showBookInfo` that accepts a book object and
-     *   outputs the information described above. Refactor your loop to use your
-     *   `showBookInfo` function.
-     */
-    function createBook (title, author) {
-            var authArray = author.split(' ');
-            var authFirst = authArray[0].toString();
-            var authLast = authArray[1].toString();
-            var cBook = {};
-            cBook.title = title;
-            cBook.author = {};
-            cBook.author.firstName = authFirst;
-            cBook.author.lastName = authLast;
-            return cBook;
-    }
-    console.log(createBook("My Story", "Jeff Rowe"))
-
-    function showBookInfo(x){
-        for(var i = 0; i < x.length; i++){
-           return "Title: " + x.title + "\n" + "Author: " + x.author.firstName + " " + x.author.lastName;
-        }
-        return console.log(info);
-    }
+    // for(var i = 0; i < books.length; i++) {
+    //     console.log("Book # " + (i + 1) + "\n" + "Title: " + books[i].title + "\n" + "Author: " + books[i].author.firstName + " " + books[i].author.lastName);
+    // }
+        /**
+         * Bonus:
+         * - Create a function named `createBook` that accepts a title and author
+         *   name and returns a book object with the properties described
+         *   previously. Refactor your code that creates the books array to instead
+         *   use your function.
+         * - Create a function named `showBookInfo` that accepts a book object and
+         *   outputs the information described above. Refactor your loop to use your
+         *   `showBookInfo` function.
+         */
+//         function createBook(title, author) {
+//             var authArray = author.split(' ');
+//             var authFirst = authArray[0].toString();
+//             var authLast = authArray[1].toString();
+//             var cBook = {};
+//             cBook.title = title;
+//             cBook.author = {};
+//             cBook.author.firstName = authFirst;
+//             cBook.author.lastName = authLast;
+//             return cBook;
+//         }
+//
+//         console.log(createBook("My Story", "Jeff Rowe"))
+//
+//         function showBookInfo(x) {
+//             for (var i = 0; i < x.length; i++) {
+//                 console.log("Book # " + (i + 1) + "\n" + "Title: " + x[i].title + "\n" + "Author: " + x[i].author.firstName + " " + x[i].author.lastName);
+//             }
+//         }
+// console.log(showBookInfo(books));
 
 })();
+
