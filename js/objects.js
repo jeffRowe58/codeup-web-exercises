@@ -57,11 +57,11 @@
         function discountApply(x) {
             var minSpend = 200;
             var discAmount = .12;
-                shoppers.forEach(function (duck, i) {
-                    if (x[i].amount > minSpend) {
-                        console.log(x[i].name + " you spent $" + (x[i].amount).toFixed(2) + " and earned a discount of $" + (x[i].amount * discAmount).toFixed(2) + ". Your total owed is $" + (x[i].amount - (x[i].amount * discAmount)).toFixed(2));
+                x.forEach(function(duck) {
+                    if (duck.amount > minSpend) {
+                        console.log(duck.name + " you spent $" + (duck.amount).toFixed(2) + " and earned a discount of $" + (duck.amount * discAmount).toFixed(2) + ". Your total owed is $" + (duck.amount - (duck.amount * discAmount)).toFixed(2));
                     } else {
-                        console.log(x[i].name + " you spent $" + (x[i].amount).toFixed(2) + ". Which brings you $" + ((x[i].amount - minSpend) * -1).toFixed(2) + " short of a discount. The total you owe is $" + (x[i].amount).toFixed(2));
+                        console.log(duck.name + " you spent $" + (duck.amount).toFixed(2) + ". Which brings you $" + ((duck.amount - minSpend) * -1).toFixed(2) + " short of a discount. The total you owe is $" + (duck.amount).toFixed(2));
                     }
                 })
         }
