@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Register With Us</title>
+        <style>
+            #pw{
+                margin-left: .42in;
+            }
+            html{
+                text-align: center;
+                background: beige;
+            }
+            textarea{
+                resize: none;
+            }
+            div{
+                text-align: justify;
+                padding-left: 800px;
+            }
+
+        </style>
+    </head>
+    <body>
+    <header><h1>Veridian Information Request</h1></header>
+        <form method="POST" action="https://request-inspector.glitch.me/" target="_blank">
+            <label for="email">E-Mail Address</label>
+            <input id="email" name="email" type="text" placeholder="E-Mail Address"><br>
+            <label for="pw">Password</label>
+            <input id="pw" name="pw" type="password" placeholder="Password"><br>
+            <p><h4>Bio</h4></p>
+            <textarea name="bio" placeholder="Tell us about yourself." cols="30" rows="20"></textarea><br>
+            <p><h4>How did you hear about us?</h4></p>
+            <div>
+                <input type="radio" name="ads" value="Billboard" onclick="hide()">Billboard<br>
+                <input type="radio" name="ads" value="Radio Advertisement" onclick="hide()">Radio Advertisement<br>
+                <input type="radio" name="ads" value="Internet Advertisement" onclick="hide()">Internet Advertisement<br>
+                <input id="other" type="radio" name="ads" value="Other" onclick="show()">Other<br>
+                <input type="text" name="otherText" id="area" style="display: none;">
+            </div>
+            <p><h4>Which browser do you use?</h4></p>
+            <select name="browser" id="browser">
+                <option disabled selected value> -- select an option -- </option>
+                <option value="mE">Microsoft Edge</option>
+                <option value="safari">Safari</option>
+                <option value="chrome">Google Chrome</option>
+                <option value="fF">Firefox</option>
+            </select><br>
+            <p><button type="submit" action="action" onclick="location.href='welcome.html'">Send my Stuff!</button></p>
+        </form>
+
+        <script type="text/javascript">
+                function show() { document.getElementById('area').style.display = 'block'; }
+                function hide() { document.getElementById('area').style.display = 'none'; }
+        </script>
+
+
+    </body>
+</html>
