@@ -19,6 +19,7 @@
                 padding-left: 800px;
             }
 
+
         </style>
     </head>
     <body>
@@ -27,18 +28,18 @@
             <label for="email">E-Mail Address</label>
             <input id="email" name="email" type="text" placeholder="E-Mail Address"><br>
             <label for="pw">Password</label>
-            <input id="pw" name="pw" type="password" placeholder="Password"><br>
-            <p><h4>Bio</h4></p>
-            <textarea name="bio" placeholder="Tell us about yourself." cols="30" rows="20"></textarea><br>
-            <p><h4>How did you hear about us?</h4></p>
+            <input id="pw" name="pw" type="password" placeholder="Password"><br><br>
+            <h4><label for="bio">Bio</label></h4>
+            <textarea id="bio" name="bio" placeholder="Tell us about yourself." cols="30" rows="20"></textarea><br>
+            <h4><label>How did you hear about us?</label></h4>
             <div>
                 <input type="radio" name="ads" value="Billboard" onclick="hide()">Billboard<br>
                 <input type="radio" name="ads" value="Radio Advertisement" onclick="hide()">Radio Advertisement<br>
                 <input type="radio" name="ads" value="Internet Advertisement" onclick="hide()">Internet Advertisement<br>
-                <input id="other" type="radio" name="ads" value="Other" onclick="show()">Other<br>
+                <input type="radio" name="ads" value="Other" onclick="show()">Other<br>
                 <input type="text" name="otherText" id="area" style="display: none;">
             </div>
-            <p><h4>Which browser do you use?</h4></p>
+            <h4><label for="browser">Which browser do you use?</label></h4>
             <select name="browser" id="browser">
                 <option disabled selected value> -- select an option -- </option>
                 <option value="mE">Microsoft Edge</option>
@@ -46,7 +47,7 @@
                 <option value="chrome">Google Chrome</option>
                 <option value="fF">Firefox</option>
             </select><br>
-            <p><button type="submit" action="action" onclick="location.href='welcome.html'">Send my Stuff!</button></p>
+            <p><button type="submit" onclick="location.href='welcome.html'">Send my Stuff!</button></p>
         </form>
 
         <script type="text/javascript">
