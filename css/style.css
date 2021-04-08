@@ -1,15 +1,23 @@
 body{
-    font-family: sans-serif;
-    background: #f5f5ef;
+    background-color: beige;
+    background-image: url("../img/27f496_855de364f09c4eebb59912951e9b8d38~mv2.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-family: 'Bebas Neue', cursive;
+    font-size: larger;
+
 }
 .fancy-header{
-    color: black;
+    color: forestgreen;
     text-align: center;
 }
 .sign-up{
 float: right;
 }
 table, tr, td, th{
+    padding: 1em;
+    font-family: sans-serif;
+    font-size: medium;
     border-bottom: 1px solid black;
     border-left: 1px solid black;
     border-top: 1px solid black;
@@ -17,7 +25,7 @@ table, tr, td, th{
 
 }
 h2{
-    color: #3b3b3c;
+    color: rgb(72,112,198);
 }
 .our-process{
     text-align: left;
@@ -52,4 +60,34 @@ h2{
 .inline-photo.is-visible{
     opacity: 1;
 
+}
+h1, h2{
+    text-decoration: underline;
+}
+ol{
+    list-style: upper-alpha;
+}
+ul{
+    list-style: square;
+}
+a:link{
+    color: blue;
+}
+a:visited{
+    color: green;
+}
+a:hover{
+    color: red;
+}
+a:active{
+    color: purple;
+}
+.motto{
+    text-align: center;
+    font-size: x-large;
+    font-family: sans-serif;
+    font-weight: bold;
+    border: 2px solid black;
+    width: 800px;
+    margin-left: 500px;
 }
