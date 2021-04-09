@@ -7,6 +7,7 @@ body{
     font-size: larger;
 
 }
+
 .fancy-header{
     color: forestgreen;
     text-align: center;
@@ -22,6 +23,7 @@ table, tr, td, th{
     border-left: 1px solid black;
     border-top: 1px solid black;
     border-right: 1px solid black;
+    border-collapse: collapse;
 
 }
 h2{
@@ -64,6 +66,9 @@ h2{
 h1, h2{
     text-decoration: underline;
 }
+h1{
+    font-size: 6em;
+}
 ol{
     list-style: upper-alpha;
 }
@@ -89,5 +94,5 @@ a:active{
     font-weight: bold;
     border: 2px solid black;
     width: 800px;
-    margin-left: 500px;
+    margin: auto;
 }
