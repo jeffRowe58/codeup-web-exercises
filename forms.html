@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Register With Us!</title>
         <style>
+            .theDuck
             #pw{
                 margin-left: .42in;
             }
@@ -34,8 +35,8 @@
                 <input type="radio" name="ads" value="Billboard" onclick="hide()">Billboard<br>
                 <input type="radio" name="ads" value="Radio Advertisement" onclick="hide()">Radio Advertisement<br>
                 <input type="radio" name="ads" value="Internet Advertisement" onclick="hide()">Internet Advertisement<br>
-                <input type="radio" name="ads" value="Other" onclick="show()">Other<br>
-                <input type="text" name="otherText" id="area" style="display: none;">
+                <input type="radio" value="Other" onclick="show()">Other<br>
+                <input type="text" name="ads" id="area" style="display: none;">
             </div>
             <h4><label for="browser">Which browser do you use?</label></h4>
             <select name="browser" id="browser">
@@ -45,9 +46,9 @@
                 <option value="chrome">Google Chrome</option>
                 <option value="fF">Firefox</option>
             </select><br>
-            <p><button type="submit" onclick="location.href='welcome.html'">Send my Stuff!</button></p>
+            <p><button type="submit" onclick="location.href='welcome.html'" >Send my Stuff!</button></p>
         </form>
-
+            <img src="img/cody-the-duck.png" height="100px" width="100px" class="theDuck">
         <script type="text/javascript">
                 function show() { document.getElementById('area').style.display = 'block'; }
                 function hide() { document.getElementById('area').style.display = 'none'; }
