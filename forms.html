@@ -4,7 +4,27 @@
         <meta charset="UTF-8">
         <title>Register With Us!</title>
         <style>
-            .theDuck
+            #theDuckSays {
+                border: 1px solid #ccc;
+                display: none;
+                font-size: 12px;
+                padding: 5px;
+                text-transform: uppercase;
+                width: 60px;
+                float: right;
+                margin-right: 800px;
+                margin-bottom: 80px;
+                border-radius: 75%;
+                background-color: white;
+                font-weight: bolder;
+                text-align: center;
+            }
+
+            #duck-div:hover #theDuckSays {
+                display: block;
+            }
+            .grow { transition: all .2s ease-in-out; }
+            .grow:hover { transform: scale(1.3); }
             #pw{
                 margin-left: .42in;
             }
@@ -48,7 +68,10 @@
             </select><br>
             <p><button type="submit" onclick="location.href='welcome.html'" >Send my Stuff!</button></p>
         </form>
-            <img src="img/cody-the-duck.png" height="100px" width="100px" class="theDuck">
+    <div id="duck-div">
+            <span id="theDuckSays">Quack!</span>
+            <img src="img/cody-the-duck.png" height="100px" width="100px" class="grow">
+    </div>
         <script type="text/javascript">
                 function show() { document.getElementById('area').style.display = 'block'; }
                 function hide() { document.getElementById('area').style.display = 'none'; }
