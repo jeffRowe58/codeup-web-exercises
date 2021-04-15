@@ -50,3 +50,15 @@ li:nth-child(5){
     width: 20px;
     background: transparent;
 }
+
+.fa-search:hover{
+    animation: spin-animation .5s;
+}
+@keyframes spin-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
