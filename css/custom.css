@@ -1,0 +1,43 @@
+.nav-item .active{
+    margin: 0 !important;
+}
+.custom{
+    background-color: lightgray;
+}
+.navbar-brand{
+    margin: 0;
+}
+.navbar-nav{
+    margin:0 !important;
+}
+.collapse{
+    margin: 0;
+}
+.form-inline {
+    position: static;
+}
+.jumbotron-fluid{
+    background-image: url("../img/pizza.png");
+    text-align: center;
+}
+.bg-white{
+    opacity: .6;
+}
+h2{
+    margin: 0 0 8px 0 !important;
+}
+.nav-tabs{
+    margin: 0 !important;
+}
+.size-crust-header{
+    background-color: #2f7df6 !important;
+    color: white !important;
+}
+.size-garlic{
+    margin: 0 !important;
+}
+
+.card-footer{
+    flex-direction: row-reverse !important;
+    /*justify-content: flex-end !important;*/
+}
