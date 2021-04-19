@@ -1,0 +1,16 @@
+
+.greenLine {
+    border-bottom: #99a97b solid 2px;
+    margin: auto;
+}
+.contact{
+    list-style: none !important;
+}
+
+
+<div class="row row-cols-1 row-cols-sm-1 row-cols-md-4 text-center">
+                                                                   <div class="col"><i class="fas fa-phone"></i>210-123-4567</div>
+                                                                                                                              <div class="col"><i class="fas fa-envelope"></i>code@codeup.com</div>
+<div class="col"><i class="fab fa-linkedin"></i>@cody-the-duck</div>
+<div class="col"><i class="fab fa-github"></i>@cody-the-duck</div>
+</div>
