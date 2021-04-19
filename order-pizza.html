@@ -67,18 +67,18 @@
                 <div class="tab-pane fade show active" id="size-crust" role="tabpanel" aria-labelledby="size-crust-tab" >
                 <div class="card">
                     <div class="card-header size-crust-header">Choose size and crust</div>
-                    <div class="card-body">
+                    <div class="card-body p-2">
 
 <!--                        Hand toss-->
                                 <div class="card mb-3">
                                     <div class="card-header">Hand Tossed</div>
                                         <p class="py-2 m-0">Garlic seasoned crust with a rich, buttery taste.</p>
                                     <div class="form-group size-garlic">
-                                        <div class="form-check border border-muted rounded">
+                                        <div class="form-check border border-muted rounded-0 py-2">
                                             <input class="form-check-input" type="radio" id="size-s" name="size">
                                             <label class="form-check-label" for="size-s">Small (10")</label>
                                         </div>
-                                        <div class="form-check border border-muted rounded">
+                                        <div class="form-check border border-muted rounded-0 py-2">
                                             <input class="form-check-input" type="radio" id="size-m" name="size">
                                             <label class="form-check-label" for="size-m">Medium (12")</label>
                                         </div>
@@ -91,11 +91,11 @@
                                 <div class="card-header">Crispy Thin</div>
                                     <p class="py-2 m-0">Thin enough for optimum crispy to crunchy ratio.</p>
                                 <div class="form-group size-garlic">
-                                    <div class="form-check border border-muted rounded">
+                                    <div class="form-check border border-muted py-2">
                                         <input class="form-check-input" type="radio" id="size-m-thin" name="size">
                                         <label class="form-check-label" for="size-m-thin">Medium (12")</label>
                                     </div>
-                                    <div class="form-check border border-muted rounded">
+                                    <div class="form-check border border-muted py-2">
                                         <input class="form-check-input" type="radio" id="size-l-thin" name="size">
                                         <label class="form-check-label" for="size-l-thin">Large (14")</label>
                                     </div>
@@ -104,7 +104,7 @@
 <!--                        Crispy Crust end-->
 
                                     <div class="card-footer d-flex">
-                                        <a href="#cheese-sauce" data-toggle="tab" class="btn btn-primary">Next Step></a>
+                                        <a href="#cheese-sauce" data-toggle="tab" class="btn btn-primary">Next Step</a>
                                     </div>
                     </div>
                     </div>
@@ -139,7 +139,7 @@
                                 <!--                        Sauce-->
                                 <div class="card mb-3">
                                     <div class="card-header">Sauce</div>
-                                    <div class="card-body p-2">
+                                    <div class="card-body p-0">
                                     <div class="form-group">
                                         <label for="sauce-type-menu">What type?</label>
                                             <select class="form-control" id="sauce-type-menu">
@@ -150,7 +150,7 @@
                                             </select>
                                     </div>
                                     <div class="card">
-                                        <div class="card-body p-2">
+                                        <div class="card-body p-0 rounded-0">
                                             <div class="form-group">
                                                 <label for="sauce-amount-menu">How much?</label>
                                                     <select class="form-control" id="sauce-amount-menu">
@@ -167,8 +167,8 @@
 
                                 <div class="card-footer text-muted text-right">
                                     <div class="btn-group" role="group" aria-label="switch-tabs">
-                                        <button type="button" class="btn btn-primary">Previous Step</button>
-                                        <button type="button" class="btn btn-primary">Next Step</button>
+                                        <a href="#size-crust" data-toggle="tab" class="btn btn-primary">Previous Step</a>
+                                        <a href="#toppings" data-toggle="tab" class="btn btn-primary">Next Step</a>
                                     </div>
                                 </div>
                     </div>
@@ -258,7 +258,7 @@
                     </div>
 
                         <div class="card-footer text-muted text-right">
-                            <button type="button" class="btn btn-primary fa fa-shopping-cart">Checkout</button>
+                            <button type="button" class="btn btn-primary">Checkout<i class="fa fa-shopping-cart"></i> </button>
                         </div>
                     </div>
                     </div>
