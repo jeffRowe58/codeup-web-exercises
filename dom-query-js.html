@@ -32,7 +32,7 @@
     (function() {
         "use strict";
         // TODO: Uncomment next line and get the main header element by id
-        var headerChange = function(event){
+        function headerChange(){
            var mainHeader = document.getElementById("main-header");
            mainHeader.innerHTML = "JavaScript is Cool";
         }
@@ -43,7 +43,7 @@
 
 
         // TODO: Uncomment the next line and get the sub header element by id
-        var subChange = function (event) {
+        function subChange() {
             var subHeader = document.getElementById("sub-header");
             subHeader.style.color = "blue";
         }
@@ -56,7 +56,7 @@
 
         // TODO: Set text color on every other list item to grey
         // TODO: Set text color of li with dbid = 1 to blue
-        var listChange = function(event) {
+        function listChange() {
             for (var i = 0; i < listItems.length; i++) {
                 var dBidId = listItems[i].getAttribute("data-dbid");
                 console.log(dBidId);
@@ -72,7 +72,7 @@
         document.getElementById("listChange").addEventListener("click", listChange)
 
         // TODO: Uncomment the next line and get all elements with class name sub-paragraph
-        var pChange = function (event) {
+        function pChange() {
             var subParagraphs = document.getElementsByClassName("sub-paragraph");
             subParagraphs[0].innerHTML = "Mission Accomplished!";
             // TODO: Change the text in the first sub paragraph to "Mission Accomplished!"
