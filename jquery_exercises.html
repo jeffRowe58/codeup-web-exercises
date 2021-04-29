@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>jQuery Exercises</title>
-  <script src="js/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      alert("Your page loaded");
-    });
-  </script>
-</head>
-<body>
-
-
-</body>
+  <head>
+      <meta charset="UTF-8">
+      <title>jQuery Exercises</title>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        alert("Your page loaded");
+        // var contents = $('#two').html();
+        // alert(contents);
+        // var alsoContent = $('#one').html();
+        // alert(alsoContent);
+      });
+    </script>
+  </head>
+  <body id="bg">
+    <h1 id="one">Blah</h1>
+    <p id="two" class="codeup">Blah-dy blah-dy blah</p>
+    <ul>
+      <li>JQuery</li>
+      <li class="codeup">fun stuff</li>
+    </ul>
+    <script>
+      // $('.codeup').css('border','2px solid black')
+      $('li').css('font-size', '20px')
+      $('h1,p,li').css('background-color', 'yellow');
+      $('h1').click(function () {
+        var contents = $('h1').html();
+        alert(contents);
+      });
+    </script>
+  </body>
 </html>
