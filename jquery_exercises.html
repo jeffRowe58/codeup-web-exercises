@@ -4,31 +4,47 @@
       <meta charset="UTF-8">
       <title>jQuery Exercises</title>
     <script src="js/jquery-3.6.0.min.js"></script>
-    <script>
-      $(document).ready(function() {
-        alert("Your page loaded");
-        // var contents = $('#two').html();
-        // alert(contents);
-        // var alsoContent = $('#one').html();
-        // alert(alsoContent);
-      });
-    </script>
+<!--    <script>-->
+<!--      $(document).ready(function() {-->
+<!--        alert("Your page loaded");-->
+<!--        // var contents = $('#two').html();-->
+<!--        // alert(contents);-->
+<!--        // var alsoContent = $('#one').html();-->
+<!--        // alert(alsoContent);-->
+<!--      });-->
+<!--    </script>-->
   </head>
   <body id="bg">
     <h1 id="one">Blah</h1>
     <p id="two" class="codeup">Blah-dy blah-dy blah</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet ea magni, neque numquam placeat soluta! Architecto dolor dolorem eaque explicabo harum incidunt, maxime quaerat quas quisquam sequi! Fugit nisi, quas?</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At beatae dolorem earum ipsa ipsum magnam modi nam natus repellendus, soluta? Accusamus aliquid aperiam cum perferendis porro quaerat repellendus tempore veritatis!</p>
     <ul>
       <li>JQuery</li>
       <li class="codeup">fun stuff</li>
     </ul>
     <script>
       // $('.codeup').css('border','2px solid black')
-      $('li').css('font-size', '20px')
-      $('h1,p,li').css('background-color', 'yellow');
-      $('h1').click(function () {
-        var contents = $('h1').html();
-        alert(contents);
-      });
+      // $('li').css('font-size', '20px')
+      // $('h1,p,li').css('background-color', 'yellow');
+      // $('h1').click(function () {
+      //   var contents = $('h1').html();
+      //   alert(contents);
+      // });
+      $('#one').click(function changeH1(){
+        $('h1').css('background-color', 'purple');
+      })
+      $('p').dblclick(function (){
+        $('p').css('font-size', '18px');
+      })
+      $('li').hover(
+              function () {
+                $(this).css('color', 'red');
+              },
+              function (){
+                $(this).css('color', 'black');
+              }
+      );
     </script>
   </body>
 </html>
