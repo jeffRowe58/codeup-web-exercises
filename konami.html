@@ -22,15 +22,21 @@
         -webkit-transition: opacity 15s ease-in-out;
         opacity: 1;
     }
+    body{
+        background-image: url("img/society hall.jpg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100%;
+    }
 
   </style>
   <body>
-    <div class="container m-auto">
+    <div class="container">
       <div class="card bg-warning">
         <div class="card-body d-flex justify-content-center align-items-center bg-white">
           <p class="text1">Welcome to the Secret Society. Please enter your passcode.</p>
           <p class="text2 ">"You have failed and will self-destruct in <span id="timer">15</span> seconds!"</p>
-          <p class="text3">Congradulations, you will not be self destructing.</p>
+          <p class="text3">Congratulations, and welcome to the club.</p>
         </div>
       </div>
     </div>
@@ -54,7 +60,7 @@
       if (event.keyCode === 13) {
               if (stringComp() !== true) {
                   userCode = [];
-                  $('body').css('background-color', 'red');
+                  $('body').css('background-image', 'url("img/society.jpg")');
                   $('.text2').css('display', 'block');
                   $('.text1').css('display', 'none');
                   $('#img').toggleClass('active');
@@ -63,7 +69,7 @@
                   $('.text1').css('display', 'none');
                   $('.text2').css('display', 'none');
                   $('.text3').css('display', 'block');
-                  $('body').css('background-color', "green");
+                  $('body').css('background-image', 'url("img/secret-societies-gettyimages-173990102.jpg")');
                   $('img').css('display', 'none');
                   clearInterval(stopit);
               }
