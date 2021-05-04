@@ -10,10 +10,17 @@
     .text2, .text3{
       display: none;
     }
-    img {
+    .standard {
         height: 250px;
-        display: none;
         margin: auto;
+        opacity: 0;
+    }
+    .active{
+        height: 250px;
+        margin-left: 750px;
+        transition: opacity 15s ease-in-out;
+        -webkit-transition: opacity 15s ease-in-out;
+        opacity: 1;
     }
 
   </style>
@@ -27,20 +34,9 @@
         </div>
       </div>
     </div>
-    <img src="img/devil_s_face_by_cryptoworks_d865x4j-fullview.png" id="img" class="">
+    <img src="img/devil_s_face_by_cryptoworks_d865x4j-fullview.png" id="img" class="standard">
 <script>
-  let counter = 15;
-  let stopit;
 
-  function updateTimer() {
-    if (counter === 0) {
-      alert('EXTERMINATE!');
-      document.body.innerHTML = '';
-    } else if (counter > 0) {
-      document.getElementById('timer').innerHTML = counter;
-    }
-    counter--;
-  }
 // Message delivery
   const code = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 13];
   let userCode = [];
@@ -56,27 +52,36 @@
     $(document).keyup(function(event) {
       userCode.push(event.keyCode);
       if (event.keyCode === 13) {
-        stopit = setInterval(updateTimer, 1000);
-        if (stringComp() !== true) {
-          userCode = [];
-          $('body').css('background-color', 'red');
-          $('.text2').css('display', 'block');
-          $('.text1').css('display', 'none');
-          $('img').css('display', 'block')
-        } else {
-          $('.text1').css('display', 'none');
-          $('.text2').css('display', 'none');
-          $('.text3').css('display', 'block');
-          $('body').css('background-color', "green");
-          $('img').css('display', 'none');
-          console.log(stopit);
-          clear();
-        }
+              if (stringComp() !== true) {
+                  userCode = [];
+                  $('body').css('background-color', 'red');
+                  $('.text2').css('display', 'block');
+                  $('.text1').css('display', 'none');
+                  $('#img').toggleClass('active');
+                  stopit = setInterval(updateTimer, 1000);
+              } else if(stringComp() === true) {
+                  $('.text1').css('display', 'none');
+                  $('.text2').css('display', 'none');
+                  $('.text3').css('display', 'block');
+                  $('body').css('background-color', "green");
+                  $('img').css('display', 'none');
+                  clearInterval(stopit);
+              }
       }
     });
-    function clear(){
-        clearInterval(stopit);
+
+let counter = 15;
+let stopit;
+
+function updateTimer() {
+    if (counter === 0) {
+        alert('EXTERMINATE!');
+        document.body.innerHTML = '';
+    } else if (counter > 0) {
+        document.getElementById('timer').innerHTML = counter;
     }
+    counter--;
+}
 </script>
   </body>
 </html>
