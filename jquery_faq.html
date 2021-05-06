@@ -56,20 +56,12 @@
                 border: 20px solid;
                 padding: 10px;
             }
-            .pic1{
-                background-image: url("img/van_gogh_vincent_525.jpg");
-            }
+
             .border1{
                 border-color: burlywood;
             }
-           .pic2{
-               background-image: url("img/tear.jpg");
-           }
            .border2{
                border-color: cornsilk;
-           }
-           .pic3{
-               background-image: url("img/pop-art-portraits.jpg");
            }
            .border3{
                border-color: saddlebrown;
@@ -185,13 +177,13 @@
                 </ul>
             <button type="button" id="parkButton" class="row d-block">Highlight Stuff!</button>
         </div>
-<!--Part Three-->
+<!--Part Three Bonus-->
 <div class="container d-flex flex-row">
-    <div id="one" class="picRotate pic1 border1"></div>
+    <div id="one"><img src="img/van_gogh_vincent_525.jpg" class="picRotate border1"></div>
 
-    <div id="two" class="picRotate pic2 border2"></div>
+    <div id="two"><img src="img/tear.jpg" class="picRotate border2"></div>
 
-    <div id="three" class="picRotate pic3 border3"></div>
+    <div id="three"><img src="img/pop-art-portraits.jpg" class="picRotate border3"></div>
 </div>
 <div class="container d-flex flex-row">
     <button id="butt1">SWAP</button>
@@ -205,6 +197,7 @@
         <li>The right frame swaps to the left and takes the image from the frame in the center.</li>
 
 </ol>
+
 <!--The Script-->
         <script src="js/jquery-3.6.0.min.js"></script>
         <script>
@@ -225,6 +218,10 @@
             $('li').click(function (){
                 $(this).parent().children('li').first().css('color', 'blue');
             });
+
+            // Bonus
+
+
             $('#butt1').click(function (){
                 $('#one').toggleClass('pic1');
                 $('#one').toggleClass('pic2');
