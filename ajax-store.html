@@ -33,7 +33,10 @@
                 left: 50%;
                 -webkit-transform: translateX(-50%);
                 transform: translateX(-50%);
-                /*display: none;*/
+            }
+            img{
+                width: 350px;
+                height: 250px;
             }
         </style>
     </head>
@@ -63,7 +66,7 @@
         <button id="the-button" type="button" class="my-2">Click to add new product!</button>
 
         <div id="imgDiv">
-            <img src="" id="toolShow">
+            <img src="img/index.jpg" id="toolShow">
         </div>
 
 
@@ -92,38 +95,40 @@
             $("#the-button").click(storeStuff);
 
             storeStuff();
+
+            var imageObject = [
+                {img: "img/hammer.jpg"},
+                {img: "img/cordlessdrills-dewalt-dcd992p2.png"},
+                {img: "img/mower.jpg"},
+                {img: "img/Screw_Driver_display.jpg"},
+                {img: "img/trimmer-wylie-tx.jpg"}
+            ]
+                $('#tool0').click(function (){
+                $('#toolShow').attr('src', imageObject[0].img);
+            });
+            $('#tool1').click(function (){
+                $('#toolShow').attr('src', imageObject[1].img);
+
+            });
+            $('#tool2').click(function (){
+                $('#toolShow').attr('src', imageObject[2].img);
+
+            });
+            $('#tool3').click(function (){
+                $('#toolShow').attr('src', imageObject[3].img);
+
+            });
+            $('#tool4').click(function (){
+                $('#toolShow').attr('src', imageObject[4].img);
+
+            });
             // TODO: Take the data from inventory.json and append it to the products table
             //       HINT: Your data should come back as a JSON object; use console.log() to inspect
             //             its contents and fields
             //       HINT: You will want to target #insertProducts for your new HTML elements
+
+
         })();
-        var imageObject = [
-            {img: "img/hammer.jpg"},
-            {img: "img/cordlessdrills-dewalt-dcd992p2.png"},
-            {img: "img/mower.jpg"},
-            {img: "img/Screw_Driver_display.jpg"},
-            {img: "img/trimmer-wylie-tx.jpg"}
-        ]
-        $('#tool0').click(function (){
-            $('#toolShow').attr('src', imageObject[0].img);
-            $('#imgDiv').prop('display', true);
-        })
-        $('#tool1').click(function (){
-            $('#toolShow').attr('src', imageObject[1].img);
-            $('#imgDiv').prop('display', true);
-        })
-        $('#tool2').click(function (){
-            $('#toolShow').attr('src', imageObject[2].img);
-            $('#imgDiv').prop('display', true);
-        })
-        $('#tool3').click(function (){
-            $('#toolShow').attr('src', imageObject[3].img);
-            $('#imgDiv').prop('display', true);
-        })
-        $('#tool4').click(function (){
-            $('#toolShow').attr('src', imageObject[4].img);
-            $('#imgDiv').prop('display', true);
-        })
         </script>
 
     </body>
