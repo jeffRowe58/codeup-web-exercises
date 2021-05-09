@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+
+#header{
+    font-family: 'Gloria Hallelujah', cursive;
+    background-image: url("../img/andrey-haimin-q2Fyzn-KJOQ-unsplash.jpg");
+    font-weight: bold;
+}
+.dropdown{
+    position: absolute;
+    z-index: 500000;
+
+}
+body{
+    background-image: url("../img/smoke.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+
+}

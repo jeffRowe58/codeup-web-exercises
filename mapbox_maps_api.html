@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+      <title>My Favorite Eats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/6a7da1b2ca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/mapbox_maps_api.css">
+  </head>
+  <body>
+    <div class="container d-flex flex-column justify-content-end">
+
+
+
+      <h1 id="header" class="d-flex justify-content-center">Rowe's Favorite Eats</h1>
+
+      <div id='map' class="d-flex justify-content-center m-auto" style='width: 600px; height: 500px'></div>
+
+<!--      Select one of my favorite-->
+      <div class="d-flex justify-content-center">
+        <label for="yum">Choose a resturant:</label>
+        <select name="resturants" id="yum" class="yum">
+          <option value="#">--Select Here--</option>
+          <option value="1">Riskey's BBQ</option>
+          <option value="2">Jungle Burger</option>
+          <option value="3">Del Sur Mexican Grill</option>
+        </select>
+      </div>
+
+    </div>
+
+
+
+    <script src="js/keys.js"></script>
+    <script src="js/mapbox-geocoder-utils.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js'></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/mapbox_maps_api.js"></script>
+    <script>
+      mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+      var map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [-98.4896, 29.4268], // starting position [lng, lat]
+        zoom: 15 // starting zoom
+      });
+
+      map.setMaxZoom(20);
+      map.setMinZoom(5);
+      // map.addControl(new mapboxgl.NavigationControl());
+
+      // Fancy fly sequence
+      setTimeout(function (){
+        map.flyTo({
+          center: myPlaces[0].location,
+          zoom: 10,
+          speed: 0.5,
+          curve: 1,
+          easing(t) {
+            return t;
+          }
+        })},5000);
+      // Call function to add my markers from object
+      addStuff();
+      var crd;
+      // Generic marker to change
+      var marker = new mapboxgl.Marker({
+        color:'red',
+      })
+              .setLngLat([-97.0403, 32.8998])
+              .addTo(map);
+
+      // Generic popup to change
+      var popup = new mapboxgl.Popup()
+              .setLngLat(marker.getLngLat())
+              .setHTML("<h3>The Airport</h3>")
+              .setMaxWidth("150px")
+              .addTo(map);
+
+      // Empty Array to add to.
+      var markers;
+
+      // The Magic
+      function addStuff() {
+        myPlaces.forEach(function (el) {
+          markers += new mapboxgl.Marker({
+            color: 'red'
+          })
+                  .setLngLat(el.location)
+                  .addTo(map)
+                  .setPopup(new mapboxgl.Popup().setHTML("<h4>" + el.name + "</h4><br><p>" + el.why + "</p>"))
+        });
+      }
+
+      // Call my variable
+      markers;
+
+      // Geolocation
+      var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+      };
+
+      function success(pos) {
+        var crdLon = pos.coords.longitude;
+        var crdLat = pos.coords.latitude;
+        crd = [crdLon , crdLat];
+      }
+
+      function error(err){
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+      }
+      // Command to get the coords
+      navigator.geolocation.getCurrentPosition(success, error, options);
+
+      // Rough draft search bar
+      $('#go').click(function(){
+        var userInput = $('#search').val();
+        geocode(userInput,MAPBOX_ACCESS_TOKEN).then(function (info){
+          var newCenter = {
+            lng: info[0],
+            lat: info[1]
+          };
+          marker.setLngLat(newCenter);
+          popup.setHTML('<h3 class="font">' + userInput + '</h3>');
+          map.flyTo({center: newCenter});
+        })
+      });
+
+      // Select on of my places
+      var selectedRestruant;
+      $('#yum').on('change', function (){
+        selectedRestruant = $(this).val().split();
+        map.flyTo({center: myPlaces[selectedRestruant].location});
+      });
+
+      // Attempting to limit search to area in bounds
+      var geocoder = new MapboxGeocoder({
+// Initialize the geocoder
+        accessToken: MAPBOX_ACCESS_TOKEN, // Set the access token
+        mapboxgl: mapboxgl, // Set the mapbox-gl instance
+        marker: false, // Do not use the default marker style
+        placeholder: 'Search for places near.', // Placeholder text for the search bar
+        bbox: [-97.3495, 32.46, -96.7784, 33.2307], // Boundary for DFW
+        proximity: {
+          longitude: -96.73913121683472,
+          latitude: 33.188563155640935
+        } // Coordinates of user
+      });
+
+      // Add the geocoder to the map
+      map.addControl(geocoder);
+
+      map.on('load', function () {
+        map.addSource('single-point', {
+          'type': 'geojson',
+          'data': {
+            'type': 'FeatureCollection',
+            'features': []
+          }
+        });
+
+        map.addLayer({
+          'id': 'point',
+          'source': 'single-point',
+          'type': 'circle',
+          'paint': {
+            'circle-radius': 10,
+            'circle-color': 'red'
+          }
+        });
+        // Listener for search box
+        geocoder.on('result', function (e) {
+          map.getSource('single-point').setData(e.result.geometry);
+        });
+      });
+    </script>
+  </body>
+</html>

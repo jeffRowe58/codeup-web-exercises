@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise</title>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+
+<div id='map' style='width: 600px; height: 500px;'></div>
+<button id="zoom" type="button">Zoom In</button>
+<script src="js/keys.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+<script>
+  mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+  var map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v11', // style URL
+    center: [-97.0403, 32.8998], // starting position [lng, lat]
+    zoom: 12 // starting zoom
+  });
+  // var dfwAirport = [-97.0403, 32.8998];
+  //
+  // setTimeout(function() {
+  //   map.flyTo({
+  //     center: dfwAirport,
+  //     zoom: 12,
+  //     speed: 0.2,
+  //     curve: 1,
+  //     easing(t) {
+  //       return t;
+  //     }
+  //   });
+  //   map.setStyle('mapbox://styles/mapbox/satellite-streets-v11');
+  // },10000);
+  //
+  // $("#zoom").click(function(){
+  //   var currentZoom = map.getZoom();
+  //   map.setZoom(currentZoom + 1);
+  // });
+  // $("#zoomOut").click(function(){
+  //   var currentZoom = map.getZoom();
+  //   map.setZoom(currentZoom - 1);
+  // });
+  map.addControl(new mapboxgl.NavigationControl())
+
+  var marker = new mapboxgl.Marker({
+      color:'blue',
+  })
+    .setLngLat([-97.3454455, 32.7885852])
+    .addTo(map);
+
+  var moveMarker = new mapboxgl.Marker({
+            color: 'red',
+          })
+            .setLngLat([-97.0403, 32.8998])
+            .setDraggable(true)
+            .addTo(map);
+
+
+  moveMarker.on('dragend', function (){
+    alert(moveMarker.getLngLat().toString());
+  })
+  var popup = new mapboxgl.Popup()
+          .setLngLat(moveMarker.getLngLat())
+          .setHTML("<h3>The Best</h3>")
+          .setMaxWidth("150px")
+          .addTo(map);
+
+  marker.setPopup(popup);
+</script>
+</body>
+</html>
