@@ -28,8 +28,15 @@
           <option value="2">Jungle Burger</option>
           <option value="3">Del Sur Mexican Grill</option>
         </select>
+        <label for="zoom">Zoom Level:</label>
+        <select name="zoom" id="zoom" class="yum">
+          <option value="5">5x</option>
+          <option value="10">10x</option>
+          <option value="15" selected>15x</option>
+          <option value="20">20x</option>
+        </select>
+        <label for="onMark">Marker Toggle</label>
       </div>
-
     </div>
 
 
@@ -47,11 +54,10 @@
         style: 'mapbox://styles/mapbox/streets-v11', // style URL
         center: [-98.4896, 29.4268], // starting position [lng, lat]
         zoom: 15 // starting zoom
-      });
 
-      map.setMaxZoom(20);
-      map.setMinZoom(5);
-      // map.addControl(new mapboxgl.NavigationControl());
+      });
+      map.scrollZoom.disable();
+      map.doubleClickZoom.disable();
 
       // Fancy fly sequence
       setTimeout(function (){
@@ -70,6 +76,7 @@
       // Generic marker to change
       var marker = new mapboxgl.Marker({
         color:'red',
+
       })
               .setLngLat([-97.0403, 32.8998])
               .addTo(map);
@@ -88,11 +95,11 @@
       function addStuff() {
         myPlaces.forEach(function (el) {
           markers += new mapboxgl.Marker({
-            color: 'red'
+            color: 'red',
           })
                   .setLngLat(el.location)
                   .addTo(map)
-                  .setPopup(new mapboxgl.Popup().setHTML("<h4>" + el.name + "</h4><br><p>" + el.why + "</p>"))
+                  .setPopup(new mapboxgl.Popup().setHTML("<h4>" + el.name + "</h4><img style='float: right' src=" + el.img + "><br><p>" + el.why + "</p>"))
         });
       }
 
@@ -118,25 +125,18 @@
       // Command to get the coords
       navigator.geolocation.getCurrentPosition(success, error, options);
 
-      // Rough draft search bar
-      $('#go').click(function(){
-        var userInput = $('#search').val();
-        geocode(userInput,MAPBOX_ACCESS_TOKEN).then(function (info){
-          var newCenter = {
-            lng: info[0],
-            lat: info[1]
-          };
-          marker.setLngLat(newCenter);
-          popup.setHTML('<h3 class="font">' + userInput + '</h3>');
-          map.flyTo({center: newCenter});
-        })
-      });
-
       // Select on of my places
       var selectedRestruant;
       $('#yum').on('change', function (){
         selectedRestruant = $(this).val().split();
         map.flyTo({center: myPlaces[selectedRestruant].location});
+      });
+
+      //Change zoom
+      var selectZoom;
+      $('#zoom').on('change', function (){
+        selectZoom = $(this).val().split();
+        map.setZoom(selectZoom);
       });
 
       // Attempting to limit search to area in bounds
@@ -179,6 +179,7 @@
           map.getSource('single-point').setData(e.result.geometry);
         });
       });
+
     </script>
   </body>
 </html>
