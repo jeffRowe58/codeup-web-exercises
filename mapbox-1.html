@@ -73,41 +73,14 @@
   marker.setPopup(popup);
 
 
-  var lonLat;
-  var zip;
-  var city;
-  var county;
-  var state;
-  var country;
-  var address;
-  var cat;
-  var maki;
-  var actual;
+  var ll;
 
-
-  function geocode(search, token) {
-      var baseUrl = 'https://api.mapbox.com';
-      var endPoint = '/geocoding/v5/mapbox.places/';
-      return fetch(baseUrl + endPoint + encodeURIComponent(search) + '.json' + "?" + 'access_token=' + token)
-          .then(function(res) {
-              return res.json();
-              // to get all the data from the request, comment out the following three lines...
-          }).then(function(data) {
-              lonLat = data.features[0].center;
-              zip = data.features[0].context[0].text;
-              city = data.features[0].context[1].text;
-              county = data.features[0].context[2].text;
-              state = data.features[0].context[3].text;
-              country = data.features[0].context[4].text;
-              address = data.features[0].properties.address;
-              cat = data.features[0].properties.category;
-              maki = data.features[0].properties.maki;
-              actual = data.features[0].text;
-
-              return data.features[0].center;
-          });
-  }
-
+  setTimeout(function (){
+     ll = {
+         lon: lonLat[0],
+         lat: lonLat[1]
+      }
+  },10000);
 
 
   var userIn = "McDonalds, Frisco TX"
@@ -116,12 +89,15 @@
       obj;
 
 
-  var info = new mapboxgl.Popup()
-    .setLngLat ({lon: lonLat[0], lat: lonLat[1]})
-    .setHTML("<h4>" + actual + "</h4><br><p>" + address + "</p><br><p>" + city + ", " + state + " " + zip + "</p>")
-    .setMaxWidth("200px")
-    .addTo(map);
-info;
+  var info;
+  setTimeout(function (){
+     info = new mapboxgl.Popup()
+          .setLngLat (ll)
+          .setHTML("<h4>" + actual + "</h4><p>" + address + "</p><p>" + city + ", " + state + " " + zip + "</p>")
+          .setMaxWidth("200px")
+          .addTo(map);
+  },11000)
+
 
 </script>
 </body>

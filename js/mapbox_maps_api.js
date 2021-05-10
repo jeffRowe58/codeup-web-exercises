@@ -4,7 +4,8 @@ const myPlaces = [
     {
         name: "Home Town",
         location: [-96.6389, 33.1983],
-        why: "Cause I live here."
+        why: "Cause I live here.",
+        img: "img/McKinney-Aerial.jpg"
     },
     {
         name: "Riscky's BBQ",
