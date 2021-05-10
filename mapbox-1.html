@@ -8,9 +8,12 @@
 <body>
 
 <div id='map' style='width: 600px; height: 500px;'></div>
+<label for="search">Search Here</label>
+<input type="text" id="search" placeholder="Search for location">
 <button id="zoom" type="button">Zoom In</button>
 <script src="js/keys.js"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+<script src="js/Geodata.js"></script>
 <script>
   mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
   var map = new mapboxgl.Map({
@@ -68,6 +71,58 @@
           .addTo(map);
 
   marker.setPopup(popup);
+
+
+  var lonLat;
+  var zip;
+  var city;
+  var county;
+  var state;
+  var country;
+  var address;
+  var cat;
+  var maki;
+  var actual;
+
+
+  function geocode(search, token) {
+      var baseUrl = 'https://api.mapbox.com';
+      var endPoint = '/geocoding/v5/mapbox.places/';
+      return fetch(baseUrl + endPoint + encodeURIComponent(search) + '.json' + "?" + 'access_token=' + token)
+          .then(function(res) {
+              return res.json();
+              // to get all the data from the request, comment out the following three lines...
+          }).then(function(data) {
+              lonLat = data.features[0].center;
+              zip = data.features[0].context[0].text;
+              city = data.features[0].context[1].text;
+              county = data.features[0].context[2].text;
+              state = data.features[0].context[3].text;
+              country = data.features[0].context[4].text;
+              address = data.features[0].properties.address;
+              cat = data.features[0].properties.category;
+              maki = data.features[0].properties.maki;
+              actual = data.features[0].text;
+
+              return data.features[0].center;
+          });
+  }
+
+
+
+  var userIn = "McDonalds, Frisco TX"
+  var obj = geocode(userIn, MAPBOX_ACCESS_TOKEN);
+
+      obj;
+
+
+  var info = new mapboxgl.Popup()
+    .setLngLat ({lon: lonLat[0], lat: lonLat[1]})
+    .setHTML("<h4>" + actual + "</h4><br><p>" + address + "</p><br><p>" + city + ", " + state + " " + zip + "</p>")
+    .setMaxWidth("200px")
+    .addTo(map);
+info;
+
 </script>
 </body>
 </html>
