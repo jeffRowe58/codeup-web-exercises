@@ -19,11 +19,11 @@ function geocode(search, token) {
             // to get all the data from the request, comment out the following three lines...
         }).then(function(data) {
             lonLat = data.features[0].center;
-            zip = data.features[0].context[1].text;
-            city = data.features[0].context[2].text;
-            county = data.features[0].context[3].text;
-            state = data.features[0].context[4].text;
-            country = data.features[0].context[5].text;
+            zip = data.features[0].context[0].text;
+            city = data.features[0].context[1].text;
+            county = data.features[0].context[2].text;
+            state = data.features[0].context[3].text;
+            country = data.features[0].context[4].text;
             address = data.features[0].properties.address;
             cat = data.features[0].properties.category;
             maki = data.features[0].properties.maki;

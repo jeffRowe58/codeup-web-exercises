@@ -13,6 +13,9 @@
         text-align: center;
         border: 2px solid lightgray;
       }
+      p{
+        font-size: 10px;
+      }
 
     </style>
   </head>
@@ -33,15 +36,21 @@
   <script src="js/jquery-3.6.0.min.js"></script>
   <script src="js/keys.js"></script>
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-  <script src="js/Geodata.js"></script>
+  <script src="js/weather-geo.js"></script>
   <script>
     var coor = [-96.699548, 33.188463];
-    geocode(coor, MAPBOX_ACCESS_TOKEN);
+
 
     var selectDays = 1;
     $('#select').on('change', function (){
       selectDays = $(this).val().split();
-      getWeather();
+      today = '';
+      todayDate = '';
+      weekday = '';
+      date = ''
+      weekWeather = [];
+      icon = '';
+      setWeather();
     });
 
     var weekday = new Array(7);
@@ -57,11 +66,28 @@
 
 
     // API Open Weather
+    setWeather();
     var obj = [];
+    var cord = [];
+    var city = [];
+    function setWeather() {
       $.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + coor[1] + "&lon=" + coor[0] + "&units=imperial&exclude=hourley,minutely&appid=" + WEATHER_MAP_TOKEN).done(function (res) {
         obj.push(res);
-        getWeather()
-      })
+        getWeather();
+        setTimeout(function (){
+        geocode(coor, MAPBOX_ACCESS_TOKEN).then(function (data){
+          cord = {lat: data[1], lon: data[0]};
+        });
+        }, 1500);
+      }).done(setTimeout(function(){
+        reverseGeocode(cord, MAPBOX_ACCESS_TOKEN).then(function (data){
+          city.push(data);
+          popup();
+        })
+      },2500));
+
+    }
+
 
 
     mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -72,25 +98,41 @@
       zoom: 12 // starting zoom
 
     });
-    var marker;
-    marker = new mapboxgl.Marker({
-      color: 'red',
-    })
-            .setLngLat(coor)
-            .setDraggable(true)
-            .addTo(map);
+
+    var marker = new mapboxgl.Marker({
+        color: 'red',
+      })
+              .setLngLat(coor)
+              .setDraggable(true)
+              .addTo(map);
+
+
 var popUp;
-setTimeout(function(){
+function popup(){
     popUp = new mapboxgl.Popup()
               .setLngLat(marker.getLngLat())
-              .setHTML("<h3>" + city +"</h3>")
+              .setHTML("<h5>" + city[0] +"</h5>")
               .setMaxWidth("150px")
               .addTo(map);
   marker.setPopup(popUp);
-},2500);
-    // marker.setPopup(popUp);
+}
+
     marker.on("dragend",function () {
-      coor = marker.getLngLat();
+      var change = marker.getLngLat();
+      obj = [];
+      coor = [change.lng, change.lat]
+      popUp = '';
+      today = '';
+      todayDate = '';
+      weekday = '';
+      date = ''
+      weekWeather = [];
+      icon = '';
+      city = [];
+      setTimeout(function (){
+      setWeather();
+      change = "";
+      },2500);
     });
 
     map.addControl(new mapboxgl.NavigationControl())
@@ -109,9 +151,7 @@ setTimeout(function(){
         date = todayDate.getDate();
         var combine = weekDay + ", " + date;
         icon = obj[0].current.weather[0].icon;
-        icon.split();
-        icon.pop();
-        icon.shift();
+        icon.replace('"',"");
         weekWeather.push({
           current:[
                   {feels_like: obj[0].current.feels_like},
@@ -132,11 +172,11 @@ setTimeout(function(){
 
 
     function postWeather(){
-      $("#weather").html("");
+      $("#weather").empty();
       for(var i = 0; i < weekWeather.length; i++){
         var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
-        html += "<h1 class='mt-3'>" + weekWeather[0].current[0].feels_like.toFixed(0) + "F" + "</h1>";
-        html += "<img src='http://openweathermap.org/img/w/["+ weekWeather[0].current[1].icon +"].png'>";
+        html += "<h3 class='mt-3'>" + weekWeather[0].current[0].feels_like.toFixed(0) + "F" + "</h3>";
+        html += "<img src='http://openweathermap.org/img/w/"+icon+".png'>";
         html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
         html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
         html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + "F</p>";
