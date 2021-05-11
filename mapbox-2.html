@@ -40,11 +40,11 @@
           .addTo(map);
 
     moveMarker.setPopup(popup);
-    moveMarker.on("dragend",function (){
-    $('#body').html(moveMarker.getLngLat().toString());
-    moveMarker.setPopup();
+  moveMarker.on("dragend",function () {
+      $('#body').html(moveMarker.getLngLat().toString());
+      moveMarker.setPopup();
   });
-  map.addControl(new mapboxgl.NavigationControl())
+  map.addControl(new mapboxgl.NavigationControl());
 </script>
 </body>
 </html>

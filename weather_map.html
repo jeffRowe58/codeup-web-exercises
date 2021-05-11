@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Weather Map</title>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+      .box{
+        box-sizing: border-box;
+        width: 170px;
+        height: 170px;
+        text-align: center;
+        border: 2px solid lightgray;
+      }
+
+    </style>
+  </head>
+  <body>
+
+  <div id="weather" class="d-flex flex-row justify-content-center"></div>
+  <div class="m-auto" id="map" style="width: 750px; height: 500px;"></div>
+  <div class="d-flex justify-content-center">
+    <label for="select">Forecast Days</label>
+    <select name="select" id="select">
+      <option value="1" selected>One</option>
+      <option value="3">Three</option>
+      <option value="5">Five</option>
+    </select>
+  </div>
+
+
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/keys.js"></script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+  <script src="js/Geodata.js"></script>
+  <script>
+    var coor = [-96.699548, 33.188463];
+    geocode(coor, MAPBOX_ACCESS_TOKEN);
+
+    var selectDays = 1;
+    $('#select').on('change', function (){
+      selectDays = $(this).val().split();
+      getWeather();
+    });
+
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+
+
+
+
+    // API Open Weather
+    var obj = [];
+      $.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + coor[1] + "&lon=" + coor[0] + "&units=imperial&exclude=hourley,minutely&appid=" + WEATHER_MAP_TOKEN).done(function (res) {
+        obj.push(res);
+        getWeather()
+      })
+
+
+    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+    var map = new mapboxgl.Map({
+      container: 'map', // container ID
+      style: 'mapbox://styles/mapbox/streets-v11', // style URL
+      center: coor, // starting position [lng, lat]
+      zoom: 12 // starting zoom
+
+    });
+    var marker;
+    marker = new mapboxgl.Marker({
+      color: 'red',
+    })
+            .setLngLat(coor)
+            .setDraggable(true)
+            .addTo(map);
+var popUp;
+setTimeout(function(){
+    popUp = new mapboxgl.Popup()
+              .setLngLat(marker.getLngLat())
+              .setHTML("<h3>" + city +"</h3>")
+              .setMaxWidth("150px")
+              .addTo(map);
+  marker.setPopup(popUp);
+},2500);
+    // marker.setPopup(popUp);
+    marker.on("dragend",function () {
+      coor = marker.getLngLat();
+    });
+
+    map.addControl(new mapboxgl.NavigationControl())
+
+    var today;
+    var todayDate;
+    var weekDay;
+    var date;
+    var weekWeather =[];
+    var icon;
+    function getWeather () {
+      for (var i = 0; i < selectDays; i++) {
+        today = obj[0].daily[i];
+        todayDate = new Date(today.dt * 1000);
+        weekDay = weekday[todayDate.getDay()];
+        date = todayDate.getDate();
+        var combine = weekDay + ", " + date;
+        icon = obj[0].current.weather[0].icon;
+        icon.split();
+        icon.pop();
+        icon.shift();
+        weekWeather.push({
+          current:[
+                  {feels_like: obj[0].current.feels_like},
+                  { icon: icon}
+                  ],
+
+          daily: [
+            {date: combine},
+            {high: obj[0].daily[i].temp.max},
+            {low: obj[0].daily[i].temp.min},
+            {weather: obj[0].daily[i].weather[0].main}
+          ]
+        });
+      }
+      postWeather();
+    }
+
+
+
+    function postWeather(){
+      $("#weather").html("");
+      for(var i = 0; i < weekWeather.length; i++){
+        var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
+        html += "<h1 class='mt-3'>" + weekWeather[0].current[0].feels_like.toFixed(0) + "F" + "</h1>";
+        html += "<img src='http://openweathermap.org/img/w/["+ weekWeather[0].current[1].icon +"].png'>";
+        html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
+        html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
+        html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + "F</p>";
+        html += "<p class='p-0 m-0'>Low: " + weekWeather[i].daily[2].low.toFixed(0) + "F</p>";
+        html += "</div>";
+      $("#weather").append(html);
+    }}
+
+  </script>
+  </body>
+</html>
