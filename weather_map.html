@@ -19,9 +19,10 @@
         font-size: 14px;
       }
       .jumbotron{
-        background-image: url("img/Climate-Change-and-the-New-Language-of-Weather-800x450.jpg");
-        background-size: 100%;
+        background-size: 50%;
         background-repeat: no-repeat;
+        background-position: center;
+        background-color: transparent;
         color: whitesmoke;
       }
      img{
@@ -36,220 +37,213 @@
   </head>
   <body>
 <!--  Search and format-->
-  <form>
-    <label for="search">Search Weather</label>
-    <input type="text" id="search" placeholder="Enter a city">
-    <button id="searchButton" type="button">Search</button>
-    <label for="f">&#8457;</label>
-    <input id="f" class="f" name="standard-metric" type="radio" value="f" checked>
-    <label for="c">&#8451;</label>
-    <input id="c" type="radio" name="standard-metric" class="c" value="c">
-  </form>
+    <div class="container row d-flex">
+      <form>
+        <label for="search">Search Weather</label>
+        <input type="text" id="search" placeholder="Enter a city">
+        <button id="searchButton" type="button">Search</button>
+      </form>
+    <form id="units" class="ml-5">
+      <label for="f">&#8457;</label>
+      <input id="f" class="f" name="standard-metric" type="radio" value="f" checked>
+      <label for="c">&#8451;</label>
+      <input id="c" type="radio" name="standard-metric" class="c" value="c">
+    </form>
+      <!--Day selector div-->
+      <div class="d-flex justify-content-center ml-5">
+        <label for="select">Forecast Days</label>
+        <select name="select" id="select">
+          <option value="1" selected>One</option>
+          <option value="3">Three</option>
+          <option value="5">Five</option>
+        </select>
+      </div>
+    </div>
+
 <!--Jumbo-->
-  <div id="current" class="jumbotron jumbotron-fluid text-center p-0 m-0"></div>
-<!--Weather div-->
-  <div id="weather" class="d-flex flex-row justify-content-center"></div>
-<!--Map div-->
-  <div class="m-auto" id="map" style="width: 750px; height: 500px;"></div>
-<!--Day selector div-->
-  <div class="d-flex justify-content-center">
-    <label for="select">Forecast Days</label>
-    <select name="select" id="select">
-      <option value="1" selected>One</option>
-      <option value="3">Three</option>
-      <option value="5">Five</option>
-    </select>
-  </div>
+    <div id="current" style='background-image: url("img/Climate-Change-and-the-New-Language-of-Weather-800x450.jpg");' class="jumbotron jumbotron-fluid text-center p-0 m-0"></div>
+  <!--Weather div-->
+    <div id="weather" class="d-flex flex-row justify-content-center"></div>
+  <!--Map div-->
+    <div class="m-auto" id="map" style="width: 750px; height: 400px;"></div>
 
 
-  <script src="js/jquery-3.6.0.min.js"></script>
-  <script src="js/keys.js"></script>
-  <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
-  <script src="js/weather-geo.js"></script>
-  <script>
-    // Initial coords
-    var coor = [-96.699548, 33.188463];
 
-    // Selected Days function
-    var selectDays = 1;
-    $('#select').on('change', function (){
-      selectDays = $(this).val().split();
-      today = '';
-      todayDate = '';
-      weekDay = '';
-      date = ''
-      weekWeather = [];
-      icon = [];
-      setWeather();
-    });
-  // Variable to convert number to a day
-    var weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/keys.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <script src="js/weather-geo.js"></script>
+    <script>
+      // Initial coords
+      var coor = [-96.699548, 33.188463];
 
-    // API Open Weather
-    // Call function
-    setWeather();
-    // Set variables
-    var obj = [];
-    var cord = [];
-    var city = [];
-    // Reusable function
-    function setWeather() {
-      $.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + coor[1] + "&lon=" + coor[0] + "&units=imperial&exclude=hourley,minutely&appid=" + WEATHER_MAP_TOKEN).done(function (res) {
-        obj.push(res);
-        getWeather();
-        // Timeout for loading time
-        setTimeout(function () {
-          geocode(coor, MAPBOX_ACCESS_TOKEN).then(function (data) {
-            cord = {lng: data[0], lat: data[1]};
-          });
-        }, 500);
-      }).done(setTimeout(function () {
-        reverseGeocode(cord, MAPBOX_ACCESS_TOKEN).then(function (data) {
-          city.push(data);
-          // Building banner
-          var sunrise = obj[0].current.sunrise;
-          var todaySR = new Date(sunrise * 1000);
-          var hourSR = todaySR.getHours() + ":" + todaySR.getMinutes();
-          var sunset = obj[0].current.sunset;
-          var todaySS = new Date(sunset * 1000);
-          var hourSS = todaySS.getHours() + ":" + todaySS.getMinutes();
-          $('#current').html("<h2 class='mt-3'>" + weekWeather[0].current[0].feels_like.toFixed(0) + fer + "</h2><h4>" + city[0] + "</h4><img src='http://openweathermap.org/img/w/" + obj[0].current.weather[0].icon + ".png'><p>Humidity: " + obj[0].current.humidity + "%" + "</p><p>Sunrise: " + hourSR + "&nbsp;&nbsp;Sunset: " + hourSS + "</p>");
-          popup();
-          setBG();
-        })
-      }, 2500));
-    }
+      // Selected Days function
+      var selectDays = 1;
+      $('#select').on('change', function (){
+        selectDays = $(this).val().split();
+        today = '';
+        todayDate = '';
+        weekDay = '';
+        date = ''
+        weekWeather = [];
+        icon = [];
+        setWeather();
+      });
+    // Variable to convert number to a day
+      var weekday = new Array(7);
+      weekday[0] = "Sunday";
+      weekday[1] = "Monday";
+      weekday[2] = "Tuesday";
+      weekday[3] = "Wednesday";
+      weekday[4] = "Thursday";
+      weekday[5] = "Friday";
+      weekday[6] = "Saturday";
 
-      function setBG() {
-        if (obj[0].current.weather[0].main === 'Clear') {
-          $('.jumbotron').css('background-image', images[0].img);
-        } else if (obj[0].current.weather[0].main === 'Clouds') {
-          $('.jumbotron').css('background-image', images[1].img);
-        } else if (obj[0].current.weather[0].main === 'Rain' || obj[0].current.weather[0].main === 'Drizzle') {
-          $('.jumbotron').css('background-image', images[2].img);
-        } else if (obj[0].current.weather[0].main === 'Snow') {
-          $('.jumbotron').css('background-image', images[3].img);
-        } else {
-          $('.jumbotron').css('background-image', images[4].img);
+
+// Unit Converter user choice
+      var userVal;
+      var units;
+      function checkUserValue(){
+        var fer = "&#8457;";
+        var cel = "&#8451;";
+        if($('#f').prop('checked') === true){
+          userVal = fer;
+          units = 'imperial';
+        }else if($('#c').prop('checked') === true){
+          userVal = cel;
+          units = 'metric';
         }
       }
+      checkUserValue();
 
-    // Initialize map
-    mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
-    var map = new mapboxgl.Map({
-      container: 'map', // container ID
-      style: 'mapbox://styles/mapbox/streets-v11', // style URL
-      center: coor, // starting position [lng, lat]
-      zoom: 12 // starting zoom
-
-    });
-// Set original marker and variable for change
-    var marker = new mapboxgl.Marker({
-        color: 'red',
+      $('#units').change(function(){
+        checkUserValue();
+        obj = [];
+        weekWeather = [];
+        popUp = '';
+        today = '';
+        todayDate = '';
+        weekDay = '';
+        date = ''
+        icon = [];
+        city = [];
+        setWeather();
       })
-              .setLngLat(coor)
-              .setDraggable(true)
-              .addTo(map);
 
-// Set popup and reusable
-var popUp;
-function popup(){
-    popUp = new mapboxgl.Popup()
-              .setLngLat(marker.getLngLat())
-              .setHTML("<h5>" + city[0] +"</h5>")
-              .setMaxWidth("150px")
-              .addTo(map);
-  marker.setPopup(popUp);
-}
-// Move marker function
-    marker.on("dragend",function () {
-      var change = marker.getLngLat();
-      map.setCenter(marker.getLngLat());
-      map.setZoom(10);
-      obj = [];
-      coor = [change.lng, change.lat]
-      popUp = '';
-      today = '';
-      todayDate = '';
-      weekDay = '';
-      date = ''
-      weekWeather = [];
-      icon = [];
-      city = [];
-      setTimeout(function (){
-      setWeather();
-      change = "";
-      },1500);
-    });
-
-    map.addControl(new mapboxgl.NavigationControl())
-// Gathering data needed for the weather display
-    var today;
-    var todayDate;
-    var weekDay;
-    var date;
-    var weekWeather =[];
-    var icon=[];
-    function getWeather () {
-      for (var i = 0; i < selectDays; i++) {
-        today = obj[0].daily[i];
-        todayDate = new Date(today.dt * 1000);
-        weekDay = weekday[todayDate.getDay()];
-        date = todayDate.getDate();
-        var combine = weekDay + ", " + date;
-        icon.push(obj[0].daily[i].weather[0].icon);
-        weekWeather.push({
-          current:[
-                  {feels_like: obj[0].current.feels_like},
-                  { icon: icon}
-                  ],
-
-          daily: [
-            {date: combine},
-            {high: obj[0].daily[i].temp.max},
-            {low: obj[0].daily[i].temp.min},
-            {weather: obj[0].daily[i].weather[0].main}
-          ]
-        });
+      function iconSetter(x) {
+          switch (x) {
+              case "01d":
+                  icon = 'img/day.svg';
+                  break;
+              case '11d':
+                  icon = 'img/thunder.svg';
+                  break;
+              case '09d':
+                  icon = 'img/rainy-4.svg';
+                  break;
+              case '10d':
+                  icon = 'img/rainy-6.svg';
+                  break;
+              case '13d':
+                  icon = 'img/snowy-6.svg';
+                  break;
+              case '50d':
+                  icon = 'img/misty.svg';
+                  break;
+              case '04d':
+                  icon = 'img/cloudy.svg';
+                  break;
+          }
       }
-      postWeather();
-    }
-// Function for posting weather
-    function postWeather(){
 
-      $("#weather").empty();
-      for(var i = 0; i < weekWeather.length; i++){
-        var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
-        html += "<img src='http://openweathermap.org/img/w/"+icon[i]+".png'>";
-        html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
-        html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
-        html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + fer +"</p>";
-        html += "<p class='p-0 m-0'>Low: " + weekWeather[i].daily[2].low.toFixed(0) + fer + "</p>";
-        html += "</div>";
-      $("#weather").append(html);
-    }}
-// Variables for search
-    var searchLL=[];
-    var userIn;
-// Search function
-    $('#searchButton').click(function() {
-      userIn = $('#search').val();
-      console.log(userIn);
-      geocode(userIn, MAPBOX_ACCESS_TOKEN).then(function (data) {
-        searchLL.push(data);
-        searchResults();
-        $('#search').val('');
+
+
+
+
+
+      // API Open Weather
+      // Call function
+      setWeather();
+      // Set variables
+      var obj = [];
+      var cord = [];
+      var city = [];
+      // Reusable function
+      function setWeather() {
+        $.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + coor[1] + "&lon=" + coor[0] + "&units="+units+"&exclude=hourly,minutely&appid=" + WEATHER_MAP_TOKEN).done(function (res) {
+          obj.push(res);
+          getWeather();
+          // Timeout for loading time
+          setTimeout(function () {
+            geocode(coor, MAPBOX_ACCESS_TOKEN).then(function (data) {
+              cord = {lng: data[0], lat: data[1]};
+            });
+          }, 500);
+        }).done(setTimeout(function () {
+          reverseGeocode(cord, MAPBOX_ACCESS_TOKEN).then(function (data) {
+            city.push(data);
+            // Building banner
+            var sunrise = obj[0].current.sunrise;
+            var todaySR = new Date(sunrise * 1000);
+            var hourSR = todaySR.getHours() + ":" + todaySR.getMinutes();
+            var sunset = obj[0].current.sunset;
+            var todaySS = new Date(sunset * 1000);
+            var hourSS = todaySS.getHours() + ":" + todaySS.getMinutes();
+            $('#current').html("<h2 class='mt-3'>" + obj[0].current.feels_like.toFixed(0) + userVal + "</h2><h4>" + city[0] + "</h4><img src='http://openweathermap.org/img/w/" + obj[0].current.weather[0].icon + ".png'><p>" + obj[0].current.weather[0].main +"</p><p class='m-0'>Humidity: " + obj[0].current.humidity + "%" + "</p><p class='m-0'>Sunrise: " + hourSR + "&nbsp;&nbsp;Sunset: " + hourSS + "</p>");
+            popup();
+            setBG();
+          })
+        }, 1500));
+      }
+
+        function setBG() {
+          if (obj[0].current.weather[0].main === 'Clear') {
+            $('#current').css('background-image', 'url('+ images[0].img +')');
+          } else if (obj[0].current.weather[0].main === 'Clouds') {
+            $('#current').css('background-image', 'url('+ images[1].img +')');
+          } else if (obj[0].current.weather[0].main === 'Rain' || obj[0].current.weather[0].main === 'Drizzle') {
+            $('#current').css('background-image', 'url('+ images[2].img +')');
+          } else if (obj[0].current.weather[0].main === 'Snow') {
+            $('#current').css('background-image', 'url('+ images[3].img +')');
+          } else {
+            $('#current').css('background-image', 'url('+ images[4].img +')');
+          }
+        }
+
+      // Initialize map
+      mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
+      var map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: coor, // starting position [lng, lat]
+        zoom: 12 // starting zoom
+
       });
-    });
-// Populating search
-      function searchResults (){
+  // Set original marker and variable for change
+      var marker = new mapboxgl.Marker({
+          color: 'red',
+        })
+                .setLngLat(coor)
+                .setDraggable(true)
+                .addTo(map);
+
+  // Set popup and reusable
+  var popUp;
+  function popup(){
+      popUp = new mapboxgl.Popup()
+                .setLngLat(marker.getLngLat())
+                .setHTML("<h5>" + city[0] +"</h5>")
+                .setMaxWidth("150px")
+                .addTo(map);
+    marker.setPopup(popUp);
+  }
+  // Move marker function
+      marker.on("dragend",function () {
+        var change = marker.getLngLat();
+        map.setCenter(marker.getLngLat());
+        map.setZoom(10);
+        obj = [];
+        coor = [change.lng, change.lat]
         popUp = '';
         today = '';
         todayDate = '';
@@ -258,41 +252,141 @@ function popup(){
         weekWeather = [];
         icon = [];
         city = [];
-        marker.setLngLat(searchLL[0]);
-        map.setCenter(marker.getLngLat());
+        setTimeout(function (){
+        setWeather();
+        change = "";
+        },1500);
+      });
+
+      map.addControl(new mapboxgl.NavigationControl())
+  // Gathering data needed for the weather display
+      var today;
+      var todayDate;
+      var weekDay;
+      var date;
+      var weekWeather =[];
+      var icon=[];
+      function getWeather () {
+        for (var i = 0; i < selectDays; i++) {
+          today = obj[0].daily[i];
+          todayDate = new Date(today.dt * 1000);
+          weekDay = weekday[todayDate.getDay()];
+          date = todayDate.getDate();
+          var combine = weekDay + ", " + date;
+          iconSetter(obj[0].daily[i].weather[0].icon);
+          weekWeather.push({
+            daily: [
+              {date: combine},
+              {high: obj[0].daily[i].temp.max},
+              {low: obj[0].daily[i].temp.min},
+              {weather: obj[0].daily[i].weather[0].main}
+            ]
+          });
+        }
+        postWeather();
+      }
+  // Function for posting weather
+      function postWeather(){
+
+        $("#weather").empty();
+        for(var i = 0; i < weekWeather.length; i++){
+          var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
+          html += "<img src='"+icon+"'>";
+          html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
+          html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
+          html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + userVal +"</p>";
+          html += "<p class='p-0 m-0'>Low: " + weekWeather[i].daily[2].low.toFixed(0) + userVal + "</p>";
+          html += "</div>";
+        $("#weather").append(html);
+      }}
+
+
+      $('#search').keypress(function(e){
+        var key = e.which;
+        if(key === 13){
+          $('#searchButton').click();
+          return false;
+        }
+      });
+  // Variables for search
+      var searchLL=[];
+      var userIn;
+  // Search function
+          $('#searchButton').click(function () {
+            userIn = $('#search').val();
+            console.log(userIn);
+            geocode(userIn, MAPBOX_ACCESS_TOKEN).then(function (data) {
+              searchLL.push(data);
+              searchResults();
+              $('#search').val('');
+            });
+          });
+  // Populating search
+        function searchResults (){
+          obj = [];
+          weekWeather = [];
+          popUp = '';
+          today = '';
+          todayDate = '';
+          weekDay = '';
+          date = ''
+          icon = [];
+          city = [];
+          marker.setLngLat(searchLL[0]);
+          map.setCenter(marker.getLngLat());
+          map.setZoom(10);
+          change = marker.getLngLat();
+          coor = [change.lng, change.lat];
+          userIn = "";
+          searchLL = [];
+          setTimeout(function (){
+            setWeather();
+            change = "";
+          },1500);
+      }
+
+      //Images for jumbotron background
+      var images = [
+        {condition: 'clear', img: "img/clear.jpg" },
+        {condition: 'clouds', img: "img/cloudy.jpg"},
+        {condition: 'rain', img: "img/rainy.jpg"},
+        {condition: 'snow', img: "img/snowy.jpg"},
+        {condition: 'thunderstorm', img: "img/thunderstorm.jpg"}
+      ];
+      // Initialize the geolocate control.
+      var geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true
+        },
+        trackUserLocation: true
+      });
+      // Add the control to the map.
+      map.addControl(geolocate);
+      // Set an event listener that fires
+      // when a geolocate event occurs.
+      geolocate.on('geolocate', function(e) {
+        var lon = e.coords.longitude;
+        var lat = e.coords.latitude;
+        var posit = [lon , lat];
+        obj = [];
+        weekWeather = [];
+        popUp = '';
+        today = '';
+        todayDate = '';
+        weekDay = '';
+        date = ''
+        icon = [];
+        city = [];
+        marker.setLngLat(posit);
         map.setZoom(10);
         change = marker.getLngLat();
         coor = [change.lng, change.lat];
-        userIn = "";
-        searchLL = [];
+        map.flyTo(coor);
         setTimeout(function (){
           setWeather();
           change = "";
         },1500);
-    }
-    // Needs refined to adjust user preference
-
-
-    // var useDeg;
-    // function userDeg (){
-    //     if(document.getElementById('f').checked){
-    //       useDeg = fer;
-    //     }else if(document.getElementById('c').checked){
-    //       useDeg = cel;
-    //     }
-    // }
-    // userDeg();
-    var fer = "&#8457;";
-    // var cel = "&#8451;";
-
-    //Images for jumbotron background
-    var images = [
-      {condition: 'clear', img: "img/clear.jpg" },
-      {condition: 'clouds', img: "img/cloudy.jpg"},
-      {condition: 'rain', img: "img/rainy.jpg"},
-      {condition: 'snow', img: "img/snowy.jpg"},
-      {condition: 'thunderstorm', img: "img/thunderstorm.jpg"}
-    ];
-  </script>
+      });
+    </script>
   </body>
 </html>
