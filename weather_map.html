@@ -9,7 +9,7 @@
       /*Weather boxes*/
       .box{
         box-sizing: border-box;
-        width: 170px;
+        width: 150px;
         height: 170px;
         text-align: center;
         border: 2px solid lightgray;
@@ -19,7 +19,7 @@
         font-size: 14px;
       }
       .jumbotron{
-        background-size: 50%;
+        background-size: 750px;
         background-repeat: no-repeat;
         background-position: center;
         background-color: transparent;
@@ -53,9 +53,9 @@
       <div class="d-flex justify-content-center ml-5">
         <label for="select">Forecast Days</label>
         <select name="select" id="select">
-          <option value="1" selected>One</option>
+          <option value="1">One</option>
           <option value="3">Three</option>
-          <option value="5">Five</option>
+          <option value="5" selected>Five</option>
         </select>
       </div>
     </div>
@@ -65,7 +65,7 @@
   <!--Weather div-->
     <div id="weather" class="d-flex flex-row justify-content-center"></div>
   <!--Map div-->
-    <div class="m-auto" id="map" style="width: 750px; height: 400px;"></div>
+    <div class="m-auto d-flex" id="map" style="width: 750px; height: 400px;"></div>
 
 
 
@@ -78,7 +78,7 @@
       var coor = [-96.699548, 33.188463];
 
       // Selected Days function
-      var selectDays = 1;
+      var selectDays = 5;
       $('#select').on('change', function (){
         selectDays = $(this).val().split();
         today = '';
@@ -103,15 +103,18 @@
 // Unit Converter user choice
       var userVal;
       var units;
+      var speed;
       function checkUserValue(){
         var fer = "&#8457;";
         var cel = "&#8451;";
         if($('#f').prop('checked') === true){
           userVal = fer;
           units = 'imperial';
+          speed = "mph";
         }else if($('#c').prop('checked') === true){
           userVal = cel;
           units = 'metric';
+          speed = 'm/s';
         }
       }
       checkUserValue();
@@ -129,11 +132,14 @@
         city = [];
         setWeather();
       })
-
+// Matches openweather icon code to animated icons
       function iconSetter(x) {
           switch (x) {
               case "01d":
                   icon = 'img/day.svg';
+                  break;
+              case '01n':
+                  icon = 'img/night.svg';
                   break;
               case '11d':
                   icon = 'img/thunder.svg';
@@ -153,7 +159,23 @@
               case '04d':
                   icon = 'img/cloudy.svg';
                   break;
+              case '04n':
+                  icon = 'img/cloudy.svg';
+                  break;
+              case '02d':
+                  icon = 'img/cloudy-day-1.svg';
+                  break;
+              case '02n':
+                  icon = 'img/cloudy-night-1.svg';
+                  break;
+              case '03d':
+                  icon = 'img/cloudy-day-1.svg';
+                  break;
+              case '03n':
+                  icon = 'img/cloudy-night-1.svg';
+                  break;
           }
+          return icon;
       }
 
 
@@ -183,19 +205,26 @@
           reverseGeocode(cord, MAPBOX_ACCESS_TOKEN).then(function (data) {
             city.push(data);
             // Building banner
+              var windDeg = obj[0].current.wind_deg;
+              console.log(windDeg)
+              var degreeComp = Math.round((windDeg % 360)/22.5);
+              console.log(degreeComp);
+              var wind = ['N','NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N'];
+              var cardnial = wind[degreeComp];
+              var windSpeed = (obj[0].current.wind_speed).toFixed(0);
             var sunrise = obj[0].current.sunrise;
             var todaySR = new Date(sunrise * 1000);
-            var hourSR = todaySR.getHours() + ":" + todaySR.getMinutes();
+            var hourSR = todaySR.getHours() + ":" + todaySR.getMinutes() + "am";
             var sunset = obj[0].current.sunset;
             var todaySS = new Date(sunset * 1000);
-            var hourSS = todaySS.getHours() + ":" + todaySS.getMinutes();
-            $('#current').html("<h2 class='mt-3'>" + obj[0].current.feels_like.toFixed(0) + userVal + "</h2><h4>" + city[0] + "</h4><img src='http://openweathermap.org/img/w/" + obj[0].current.weather[0].icon + ".png'><p>" + obj[0].current.weather[0].main +"</p><p class='m-0'>Humidity: " + obj[0].current.humidity + "%" + "</p><p class='m-0'>Sunrise: " + hourSR + "&nbsp;&nbsp;Sunset: " + hourSS + "</p>");
+            var hourSS = (todaySS.getHours() - 12) + ":" + todaySS.getMinutes() + "pm";
+            $('#current').html("<h2 class='mt-3'>" + obj[0].current.feels_like.toFixed(0) + userVal + "</h2><h4>" + city[0] + "</h4><img src='"+ iconSetter(obj[0].current.weather[0].icon) + "'><p>" + obj[0].current.weather[0].main +"</p><p class='m-0 p-0'>Wind: " + windSpeed + speed + " " + cardnial + "</p><p class='m-0'>Humidity: " + obj[0].current.humidity + "%" + "</p><p class='m-0'>Sunrise: " + hourSR + "&nbsp;&nbsp;Sunset: " + hourSS + "</p>");
             popup();
             setBG();
           })
         }, 1500));
       }
-
+// Change Jumbotron background
         function setBG() {
           if (obj[0].current.weather[0].main === 'Clear') {
             $('#current').css('background-image', 'url('+ images[0].img +')');
@@ -209,6 +238,7 @@
             $('#current').css('background-image', 'url('+ images[4].img +')');
           }
         }
+
 
       // Initialize map
       mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -273,25 +303,26 @@
           weekDay = weekday[todayDate.getDay()];
           date = todayDate.getDate();
           var combine = weekDay + ", " + date;
-          iconSetter(obj[0].daily[i].weather[0].icon);
           weekWeather.push({
             daily: [
               {date: combine},
               {high: obj[0].daily[i].temp.max},
               {low: obj[0].daily[i].temp.min},
-              {weather: obj[0].daily[i].weather[0].main}
+              {weather: obj[0].daily[i].weather[0].main},
+                {icon: obj[0].daily[i].weather[0].icon}
             ]
           });
         }
         postWeather();
       }
+
   // Function for posting weather
       function postWeather(){
 
         $("#weather").empty();
         for(var i = 0; i < weekWeather.length; i++){
           var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
-          html += "<img src='"+icon+"'>";
+          html += "<img src='"+ iconSetter(weekWeather[i].daily[4].icon) +"'>";
           html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
           html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
           html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + userVal +"</p>";
@@ -300,7 +331,7 @@
         $("#weather").append(html);
       }}
 
-
+// Clicks searchButton when enter is clicked
       $('#search').keypress(function(e){
         var key = e.which;
         if(key === 13){
@@ -387,6 +418,7 @@
           change = "";
         },1500);
       });
+
     </script>
   </body>
 </html>
