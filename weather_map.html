@@ -286,7 +286,7 @@
           var alerts = obj[0].alerts[0].event;
           popUp = new mapboxgl.Popup()
               .setLngLat(marker.getLngLat())
-              .setHTML("<h6>" + city[0] +"</h6><p class='font-weight-bold font-italic m-0 p-0'>"+ alerts + "</p><p class='paraText m-0 p-0'><strong>Start</strong>: " + weekday[start.getDay()] + "&nbsp;(" + start.getDate() + ")&nbsp;" + startF + "<br><strong>End</strong>: " + weekday[end.getDay()] + "&nbsp;(" + end.getDate() + ")&nbsp;" + endF + "</p><p class='m-0 p-0 paraText'>Description: " + description + "</p>")
+              .setHTML(`<h6>${city[0]}</h6><p class='font-weight-bold font-italic m-0 p-0'>${alerts}</p><p class='paraText m-0 p-0'><strong>Start</strong>:${weekday[start.getDay()]}&nbsp;${start.getDate()}&nbsp; ${startF}<br><strong>End</strong>:${weekday[end.getDay()]}&nbsp;${end.getDate()}&nbsp;${endF}</p><p class='m-0 p-0 paraText'>Description: ${description}</p>`)
               .setMaxWidth("300px")
               .addTo(map);
           marker.setPopup(popUp);
