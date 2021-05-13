@@ -7,11 +7,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <style>
       /*Weather boxes*/
+      #weather{
+          display: flex;
+          box-sizing: border-box;
+          width: 750px;
+          height: 170px;
+          justify-content: center;
+          margin: auto;
+      }
       .box{
-        box-sizing: border-box;
-        width: 150px;
-        height: 170px;
+        display: flex;
         text-align: center;
+          justify-content: center;
         border: 2px solid lightgray;
         background-color: white;
       }
@@ -26,7 +33,7 @@
         background-repeat: no-repeat;
         background-position: center;
         background-color: transparent;
-        color: whitesmoke;
+        color: black;
       }
      img{
        background-color: whitesmoke;
@@ -45,7 +52,7 @@
   </head>
   <body>
 <!--  Search and format-->
-    <div class="container row d-flex">
+    <div class="container row d-flex justify-content-center m-0 p-0">
       <form id="formSearch">
         <label for="search">Search Weather</label>
         <input type="text" id="search" placeholder="Enter a city">
@@ -71,7 +78,7 @@
 <!--Jumbo-->
     <div id="current" style='background-image: url("img/Climate-Change-and-the-New-Language-of-Weather-800x450.jpg");' class="jumbotron jumbotron-fluid text-center p-0 m-0"></div>
   <!--Weather div-->
-    <div id="weather" class="d-flex flex-row justify-content-center"></div>
+    <div id="weather"></div>
   <!--Map div-->
     <div class="m-auto d-flex" id="map" style="width: 750px; height: 400px;"></div>
 
@@ -82,7 +89,7 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
     <script src="js/weather-geo.js"></script>
     <script>
-        document.getElementById('search').focus();
+
       // Initial coords
       var coor = [-96.699548, 33.188463];
 
@@ -215,9 +222,7 @@
             city.push(data);
             // Building banner
               var windDeg = obj[0].current.wind_deg;
-              console.log(windDeg)
               var degreeComp = Math.round((windDeg % 360)/22.5);
-              console.log(degreeComp);
               var wind = ['N','NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N'];
               var cardnial = wind[degreeComp];
               var windSpeed = (obj[0].current.wind_speed).toFixed(0);
@@ -271,12 +276,14 @@
   function popup(){
       if(obj[0].alerts){
           var start = new Date(obj[0].alerts[0].start * 1000);
+          var startF = start.getHours() + ":" + ((start.getMinutes() < 10) ? '0' + start.getMinutes() : start.getMinutes());
           var end = new Date(obj[0].alerts[0].end * 1000);
+          var endF = end.getHours() + ':' + ((end.getMinutes() < 10) ? '0' + end.getMinutes() : end.getMinutes());
           var description = obj[0].alerts[0].description;
           var alerts = obj[0].alerts[0].event;
           popUp = new mapboxgl.Popup()
               .setLngLat(marker.getLngLat())
-              .setHTML("<h6>" + city[0] +"</h6><p class='font-weight-bold font-italic m-0 p-0'>"+ alerts + "</p><p class='paraText m-0 p-0'>Start: " + start.getHours() + ":" + start.getMinutes() + "  End: " + end.getHours() + ":" + end.getMinutes() + "</p><p class='m-0 p-0 paraText'>Description: " + description + "</p>")
+              .setHTML("<h6>" + city[0] +"</h6><p class='font-weight-bold font-italic m-0 p-0'>"+ alerts + "</p><p class='paraText m-0 p-0'>Start: " + weekday[start.getDay()] + "&nbsp;" + startF + "  End: " + weekday[end.getDay()] + "&nbsp;" + endF + "</p><p class='m-0 p-0 paraText'>Description: " + description + "</p>")
               .setMaxWidth("300px")
               .addTo(map);
           marker.setPopup(popUp);
@@ -366,7 +373,6 @@
   // Search function
           $('#searchButton').click(function () {
             userIn = $('#search').val();
-            console.log(userIn);
             geocode(userIn, MAPBOX_ACCESS_TOKEN).then(function (data) {
               searchLL.push(data);
               searchResults();
@@ -439,7 +445,7 @@
           change = "";
         },1500);
       });
-
+      document.getElementById('search').focus();
     </script>
   </body>
 </html>
