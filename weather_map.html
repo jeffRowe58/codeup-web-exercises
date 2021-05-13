@@ -52,7 +52,7 @@
   </head>
   <body>
 <!--  Search and format-->
-    <div class="container row d-flex justify-content-center m-0 p-0">
+    <div class="container row d-flex justify-content-center m-auto p-0">
       <form id="formSearch">
         <label for="search">Search Weather</label>
         <input type="text" id="search" placeholder="Enter a city">
@@ -126,11 +126,11 @@
         if($('#f').prop('checked') === true){
           userVal = fer;
           units = 'imperial';
-          speed = "mph";
+          speed = "MPH";
         }else if($('#c').prop('checked') === true){
           userVal = cel;
           units = 'metric';
-          speed = 'm/s';
+          speed = 'M/s';
         }
       }
       checkUserValue();
@@ -219,7 +219,8 @@
           }, 500);
         }).done(setTimeout(function () {
           reverseGeocode(cord, MAPBOX_ACCESS_TOKEN).then(function (data) {
-            city.push(data);
+              var extract = data.split(',');
+            city.push(extract[1]);
             // Building banner
               var windDeg = obj[0].current.wind_deg;
               var degreeComp = Math.round((windDeg % 360)/22.5);
@@ -276,14 +277,16 @@
   function popup(){
       if(obj[0].alerts){
           var start = new Date(obj[0].alerts[0].start * 1000);
-          var startF = start.getHours() + ":" + ((start.getMinutes() < 10) ? '0' + start.getMinutes() : start.getMinutes());
+          var startF = (start.getHours() > 12) ? ((start.getHours()) - 12) + ":" + ((start.getMinutes() < 10) ? '0' + start.getMinutes() : start.getMinutes()) + " pm" :
+              start.getHours() + ":" + ((start.getMinutes() < 10) ? '0' + start.getMinutes() : start.getMinutes()) + " am";
           var end = new Date(obj[0].alerts[0].end * 1000);
-          var endF = end.getHours() + ':' + ((end.getMinutes() < 10) ? '0' + end.getMinutes() : end.getMinutes());
+          var endF = (end.getHours() > 12) ? ((end.getHours()) - 12) + ":" + ((end.getMinutes() < 10) ? '0' + end.getMinutes() : end.getMinutes()) + " pm" :
+              end.getHours() + ":" + ((end.getMinutes() < 10) ? '0' + end.getMinutes() : end.getMinutes()) + " am";
           var description = obj[0].alerts[0].description;
           var alerts = obj[0].alerts[0].event;
           popUp = new mapboxgl.Popup()
               .setLngLat(marker.getLngLat())
-              .setHTML("<h6>" + city[0] +"</h6><p class='font-weight-bold font-italic m-0 p-0'>"+ alerts + "</p><p class='paraText m-0 p-0'>Start: " + weekday[start.getDay()] + "&nbsp;" + startF + "  End: " + weekday[end.getDay()] + "&nbsp;" + endF + "</p><p class='m-0 p-0 paraText'>Description: " + description + "</p>")
+              .setHTML("<h6>" + city[0] +"</h6><p class='font-weight-bold font-italic m-0 p-0'>"+ alerts + "</p><p class='paraText m-0 p-0'><strong>Start</strong>: " + weekday[start.getDay()] + "&nbsp;(" + start.getDate() + ")&nbsp;" + startF + "<br><strong>End</strong>: " + weekday[end.getDay()] + "&nbsp;(" + end.getDate() + ")&nbsp;" + endF + "</p><p class='m-0 p-0 paraText'>Description: " + description + "</p>")
               .setMaxWidth("300px")
               .addTo(map);
           marker.setPopup(popUp);
