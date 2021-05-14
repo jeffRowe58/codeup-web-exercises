@@ -35,6 +35,14 @@
           <option value="15" selected>15x</option>
           <option value="20">20x</option>
         </select>
+        <label for="distance">Search radius(miles):</label>
+        <select name="distance" id="distance" class="yum">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+        </select>
+        <label for="onMark">Marker Toggle</label>
         <label for="onMark">Marker Toggle</label>
         <input type="checkbox" id="onMark">
       </div>
@@ -122,7 +130,7 @@
       function success(pos) {
         crd = pos.coords;
         ll = new mapboxgl.LngLat(crd.longitude, crd.latitude);
-        rad = ll.toBounds(40234).toArray();
+        rad = ll.toBounds(40233).toArray();
         now = rad[0].concat(rad[1]);
         geo()
       }
