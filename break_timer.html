@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Break Timer</title>
+    <style>
+      #head{
+        text-align: center;
+      }
+      #break-buttons{
+        display: flex;
+        justify-content: center;
+      }
+      #html{
+        display: flex;
+        justify-content: center;
+        margin: 0;
+      }
+      #timer{
+        display: flex;
+        justify-content: center;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1 id="head">Break-O-Matic</h1>
+    <div id="html"></div>
+    <div id="timer"></div>
+    <div id="break-buttons">
+      <button type="button" id="fifteen" value="15">15 minute</button>
+      <button type="button" id="thirty" value="30">30 minute</button>
+    </div>
+
+
+    <script src="js/jquery-3.6.0.min.js"></script>
+
+    <script>
+
+      var small = $('#fifteen').val();
+      var big = $('#thirty').val();
+      var userIn
+      $('#break-buttons').children().on('click', function(){
+        userIn = parseInt($(this).val());
+        setBreakEnd(userIn)
+        startTimer()
+      });
+
+
+    function setBreakEnd(x) {
+      var date = new Date();
+      console.log(date);
+      timeOf = (date.getHours()>= 12) ? "pm" : "am";
+      hour = (date.getHours()> 12) ? (date.getHours() -12) : date.getHours();
+      minute = date.getMinutes();
+      if (minute + x > 60) {
+        var endBreak = (hour + 1) + " : " + ((((minute + x) - 60)<10) ? '0' + (minute + x - 60) : (minute + x) - 60);
+      } else {
+        var endBreak = hour + " : " + (minute + x);
+      }
+      $('#html').html("<h1>Come back at: " + endBreak +timeOf+ "</h1>")
+    }
+    var cD;
+    function startTimer(){
+      cD = setInterval(countDown, 1000)
+    }
+    var minutes = 14
+      var seconds = 59
+    function countDown(){
+
+      if(seconds === 0){
+        minutes--;
+        seconds = 59;
+      }else{
+        seconds--;
+      }
+      if(minutes === 0 && seconds === 0){
+        $('#timer').html("<h1>Break is over</h1>")
+        clearInterval(cD);
+      }else{
+        $('#timer').html('<h1>' + minutes + ":" + ((seconds < 10) ? '0' + seconds : seconds) + "</h1>");
+      }
+    }
+  </script>
+  </body>
+</html>
