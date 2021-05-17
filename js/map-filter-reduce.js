@@ -61,6 +61,13 @@ const instructors = users.reduce((a, b, index, array) => {
 },'Your instructors names are: ');
 
 
-// const uniqueLanguage = users.reduce((a, b, index) =>
-//    a.includes(b.languages) ? a : [...a, b.languages[index]], "");
-// console.log(uniqueLanguage);
+// const uniqueLanguage = users.reduce((a, b, index, array) => {
+//     if (index === array.length) {
+//         console.log(a);
+//         a.reduce((c, d) =>
+//             c.includes(d) ? c : [...c, d])
+//         console.log(d);
+//     } else {
+//       return a.concat(b.languages);
+//     }
+// }, []);
