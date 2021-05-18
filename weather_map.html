@@ -103,6 +103,9 @@
         date = ''
         weekWeather = [];
         icon = [];
+        dayWeather = [];
+        weatherHour = '';
+        perHour = '';
         setWeather();
       });
     // Variable to convert number to a day
@@ -313,6 +316,9 @@
         weekWeather = [];
         icon = [];
         city = [];
+        dayWeather = [];
+        weatherHour = '';
+        perHour = '';
         setTimeout(function (){
         setWeather();
         change = "";
@@ -343,10 +349,10 @@
                   dayWeather.push({
                       daily: [
                           {date: combine},
-                          {high: obj[0].daily[i].temp.max},
-                          {low: obj[0].daily[i].temp.min},
-                          {weather: obj[0].daily[i].weather[0].main},
-                          {icon: obj[0].daily[i].weather[0].icon}
+                          {high: obj[0].daily[0].temp.max},
+                          {low: obj[0].daily[0].temp.min},
+                          {weather: obj[0].daily[0].weather[0].main},
+                          {icon: obj[0].daily[0].weather[0].icon}
                       ],
                       hours: [
                           {hour: perHour},
@@ -378,31 +384,42 @@
       }
 
   // Function for posting weather
-      var html;
+
       function postWeather(){
-        $("#weather").empty();
+        // $("#weather").empty();
+          console.log(selectDays);
           if(selectDays === 1){
+              $("#weather").empty();
               for(var n = 0; n < dayWeather.length; n++){
-                  html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
+                 var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
                   html += "<div class='row d-flex flex-column'>";
-                  html += "<img src='"+ iconSetter(weekWeather[i].daily[4].icon) +"'>";
-                  html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
-                  html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
+                  html += "<img src='"+ iconSetter(dayWeather[0].daily[4].icon) +"'>";
+                  html += "<p class='m-0 p-0'>" + dayWeather[0].daily[0].date + "</p>";
+                  html += "<p class='p-0 m-0'>" + dayWeather[0].daily[3].weather + "</p>";
                   html += "</div>";
-                  html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + userVal +"</p>";
-                  html += "<p class='p-0 m-0'>Low: " + weekWeather[i].daily[2].low.toFixed(0) + userVal + "</p>";
+                  html += "<div class='d-flex flex-row row'>";
+                  html += "<p class='p-0 m-0'>" + dayWeather[1].hours[n].hour +"</p>";
+                  html += "<p class='p-0 m-0'>" + dayWeather[1].hours[n].icon +"</p>";
+                  html += "<p class='p-0 m-0'>" + dayWeather[1].hours[n].temp + userVal +"</p>";
+                  html += "<p class='p-0 m-0'>" + dayWeather[1].hours[n].weather +"</p>";
                   html += "</div>";
+                  html += "</div>";
+                  console.log(html);
               }
           }else{
+              $("#weather").empty();
         for(var i = 0; i < weekWeather.length; i++){
-          html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
+          var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
           html += "<img src='"+ iconSetter(weekWeather[i].daily[4].icon) +"'>";
           html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
           html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
           html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + userVal +"</p>";
           html += "<p class='p-0 m-0'>Low: " + weekWeather[i].daily[2].low.toFixed(0) + userVal + "</p>";
           html += "</div>";
-        }}$("#weather").append(html);}
+        }
+      }
+          $("#weather").append(html);
+      }
 
 // Clicks searchButton when enter is clicked
       $('#search').keypress(function(e){
@@ -435,6 +452,9 @@
           date = ''
           icon = [];
           city = [];
+          dayWeather = [];
+          weatherHour = '';
+          perHour = '';
           marker.setLngLat(searchLL[0]);
           map.setCenter(marker.getLngLat());
           map.setZoom(10);
@@ -480,6 +500,9 @@
         date = ''
         icon = [];
         city = [];
+        dayWeather = [];
+        weatherHour = '';
+        perHour = '';
         marker.setLngLat(posit);
         map.setZoom(10);
         change = marker.getLngLat();
