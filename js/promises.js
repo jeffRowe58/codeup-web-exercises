@@ -8,24 +8,18 @@ $('#userInput').on('keyup', function(){
 });
 function getUserRepos(x) {
     fetch('https://api.github.com/users/'+ x + '/events', {headers: {'Authorization': GITHUB_API_TOKEN}})
-        .then(function (resp) {
-            return resp.json();
-        })
-        .then(function (data) {
+        .then(resp => resp.json())
+        .then(data => {
             myData = data;
-            pullInfo();
+            pullInfo()
         })
-        .catch(function (error) {
+        .catch(error =>
             console.log("Request failed", error)
-        });
+        );
 }
 
 function pullInfo(){
-    var convert1 = (myData[0].created_at).split('T');
-    var betterTime = convert1[1].split('');
-    betterTime.pop();
-    betterTime = betterTime.join('');
-    date = convert1[0] + " " + betterTime + "Z";
+    date = new Date(myData[0].created_at).toLocaleDateString("en-US").split(/:| /);
     $('#userInput').val("");
     postDate();
 }
@@ -33,3 +27,12 @@ function postDate(){
     document.getElementById('dateOfLast').innerHTML = userName +"'s last Push was on: " + date;
 }
 
+const wait = ms => {
+    return new Promise(resolve => {
+        setTimeout(() =>{
+            resolve();
+        }, ms);
+    })
+}
+wait(1000).then(() => console.log('You\'ll see this after 1 second'));
+wait(3000).then(() => console.log('You\'ll see this after 3 seconds'));
