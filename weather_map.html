@@ -208,7 +208,7 @@
       var city = [];
       // Reusable function
       function setWeather() {
-        $.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + coor[1] + "&lon=" + coor[0] + "&units="+units+"&minutely&appid=" + WEATHER_MAP_TOKEN).done(function (res) {
+        $.get("https://api.openweathermap.org/data/2.5/onecall?lat=" + coor[1] + "&lon=" + coor[0] + "&units="+units+"&hourly,minutely&appid=" + WEATHER_MAP_TOKEN).done(function (res) {
           obj.push(res);
           getWeather();
           // Timeout for loading time
@@ -327,36 +327,7 @@
       var date;
       var weekWeather =[];
       var icon=[];
-      var dayWeather = [];
-      var weatherHour;
-      var perHour;
       function getWeather () {
-          if(selectDays === 1){
-              today = obj[0].daily[i];
-              todayDate = new Date(today.dt * 1000);
-              weekDay = weekday[todayDate.getDay()];
-              date = todayDate.getDate();
-              weatherHour = new Date(obj[0].hourly[0].dt * 1000);
-              perHour = weatherHour.getHours();
-              var combine = weekDay + ", " + date;
-              for(var j = 0; j < 12; j++) {
-                  dayWeather.push({
-                      daily: [
-                          {date: combine},
-                          {high: obj[0].daily[i].temp.max},
-                          {low: obj[0].daily[i].temp.min},
-                          {weather: obj[0].daily[i].weather[0].main},
-                          {icon: obj[0].daily[i].weather[0].icon}
-                      ],
-                      hours: [
-                          {hour: perHour},
-                          {temp: obj[0].hourly[i].temp},
-                          {weather: obj[0].hourly[i].weather[0].main},
-                          {icon: obj[0].hourly[i].weather[0].icon}
-                      ]
-                  });
-              }
-          }else {
               for (var i = 0; i < selectDays; i++) {
                   today = obj[0].daily[i];
                   todayDate = new Date(today.dt * 1000);
@@ -373,36 +344,22 @@
                       ]
                   });
               }
-          }
               postWeather();
       }
 
   // Function for posting weather
-      var html;
+
       function postWeather(){
         $("#weather").empty();
-          if(selectDays === 1){
-              for(var n = 0; n < dayWeather.length; n++){
-                  html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
-                  html += "<div class='row d-flex flex-column'>";
-                  html += "<img src='"+ iconSetter(weekWeather[i].daily[4].icon) +"'>";
-                  html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
-                  html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
-                  html += "</div>";
-                  html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + userVal +"</p>";
-                  html += "<p class='p-0 m-0'>Low: " + weekWeather[i].daily[2].low.toFixed(0) + userVal + "</p>";
-                  html += "</div>";
-              }
-          }else{
         for(var i = 0; i < weekWeather.length; i++){
-          html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
+          var html = "<div class='box container d-flex justify-content-center flex-column m-0 p-0'>";
           html += "<img src='"+ iconSetter(weekWeather[i].daily[4].icon) +"'>";
           html += "<p class='m-0 p-0'>" + weekWeather[i].daily[0].date + "</p>";
           html += "<p class='p-0 m-0'>" + weekWeather[i].daily[3].weather + "</p>";
           html += "<p class='p-0 m-0'>High: " + weekWeather[i].daily[1].high.toFixed(0) + userVal +"</p>";
           html += "<p class='p-0 m-0'>Low: " + weekWeather[i].daily[2].low.toFixed(0) + userVal + "</p>";
           html += "</div>";
-        }}$("#weather").append(html);}
+        }$("#weather").append(html);}
 
 // Clicks searchButton when enter is clicked
       $('#search').keypress(function(e){
