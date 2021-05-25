@@ -12,3 +12,9 @@ for(var i = 1; i <= 30; i ++){
         document.getElementById('content').innerHTML += i + "<br>";
     }
 }
+
+ function seven(){
+    return 7;
+}
+
+document.getElementById('content').innerHTML =  seven();
