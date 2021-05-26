@@ -71,14 +71,25 @@
       }
       $('#html').html("<h1>Come back at: " + endBreak +timeOf+ "</h1>")
     }
-    var cD;
-    function startTimer(){
-      cD = setInterval(countDown, 1000)
-    }
-    var minutes = 14
-      var seconds = 59
-    function countDown(){
 
+    // updated stuff
+
+    var cD;
+    var minutes;
+    var seconds;
+    function startTimer(){
+      cD = setInterval(countDown, 1000);
+    }
+
+
+    function countDown(){
+      if(userIn === 15) {
+        minutes = 14;
+        seconds = 59;
+      }else{
+        minutes = 29;
+        seconds = 59;
+      }
       if(seconds === 0){
         minutes--;
         seconds = 59;
